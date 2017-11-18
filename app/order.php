@@ -6,6 +6,10 @@ use Illuminate\Database\Eloquent\Model;
 
 class order extends Model
 {
+    protected $fillable = [
+        'user_id', 'pengurus_id', 'tgl_booking','tgl_exp','status_book'
+    ];
+
     public function order_studios(){
         return $this->hasMany(order_studio::class);
     }

@@ -6,6 +6,10 @@ use Illuminate\Database\Eloquent\Model;
 
 class kerusakan_studio extends Model
 {
+    protected $fillable = [
+        'name', 'email', 'password',
+    ];
+
     protected $guarded=[
 
     ];
