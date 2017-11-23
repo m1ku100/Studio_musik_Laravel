@@ -11,6 +11,14 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+Auth::routes();
+
+Route::get('/', 'SistumController@index')->name('dashboard');
+Route::post('/contact', 'SistumController@postContact')->name('submit_contact');
+
+Route::prefix('member')->group(function () {
+    Route::get('{user}/settings', 'Auth\UserController@showAccountSettings');
+    Route::put('{user}', 'Auth\UserController@updateAccount');
+    Route::get('{user}/history', 'Auth\UserController@showOrderHistory');
+    Route::get('{user}/history/print', 'Auth\UserController@printOrderHistory');
 });
