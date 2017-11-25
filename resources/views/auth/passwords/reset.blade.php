@@ -7,7 +7,7 @@
                 <div class="col-md-12">
                     <div class="section-heading-4 wow fadeInRight" data-wow-duration="1s" data-wow-delay=".3s">
                         <div class="section-title-4">
-                            <h1><strong>RESET</strong> PASSWORD</h1>
+                            <h1><strong>MEMBER</strong> RESET PASSWORD</h1>
                         </div>
                     </div>
                 </div>

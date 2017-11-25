@@ -39,7 +39,7 @@ class UserController extends Controller
         $input = $request->all();
         $data = User::find(auth()->user()->id);
         if (!Hash::check($input['password'], $data->password)) {
-            Session::flash('status', 'Your current password is not correct!');
+            Session::flash('status', 'Your current password is incorrect!');
             return back();
         } else {
             if ($request->hasFile('gambar_user')) {

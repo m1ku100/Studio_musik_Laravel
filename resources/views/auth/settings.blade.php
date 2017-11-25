@@ -32,7 +32,8 @@
                                 <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }} has-feedback">
                                     <label for="name" class="col-md-4 control-label">Full Name</label>
                                     <div class="col-md-6">
-                                        <input id="name" type="text" class="form-control" name="name"
+                                        <input placeholder="Full name" id="name" type="text" class="form-control"
+                                               name="name"
                                                value="{{ $user->name }}" required autofocus>
                                         <span class="glyphicon glyphicon-user form-control-feedback"></span>
                                         @if ($errors->has('name'))
@@ -45,7 +46,8 @@
                                 <div class="form-group{{ $errors->has('nama_band') ? ' has-error' : '' }} has-feedback">
                                     <label for="nama_band" class="col-md-4 control-label">Band Name</label>
                                     <div class="col-md-6">
-                                        <input id="nama_band" type="text" class="form-control" name="nama_band"
+                                        <input placeholder="Band name" id="nama_band" type="text" class="form-control"
+                                               name="nama_band"
                                                value="{{ $user->nama_band }}" required autofocus>
                                         <span class="glyphicon glyphicon-music form-control-feedback"></span>
                                         @if ($errors->has('nama_band'))
@@ -58,7 +60,8 @@
                                 <div class="form-group{{ $errors->has('alamat') ? ' has-error' : '' }} has-feedback">
                                     <label for="alamat" class="col-md-4 control-label">Address</label>
                                     <div class="col-md-6">
-                                        <textarea id="alamat" type="text" class="form-control" name="alamat"
+                                        <textarea placeholder="Address" id="alamat" type="text" class="form-control"
+                                                  name="alamat"
                                                   required autofocus>{{ $user->alamat }}</textarea>
                                         <span class="glyphicon glyphicon-home form-control-feedback"></span>
                                         @if ($errors->has('alamat'))
@@ -71,7 +74,8 @@
                                 <div class="form-group{{ $errors->has('no_telp') ? ' has-error' : '' }} has-feedback">
                                     <label for="no_telp" class="col-md-4 control-label">Phone</label>
                                     <div class="col-md-6">
-                                        <input id="no_telp" type="text" class="form-control" name="no_telp"
+                                        <input placeholder="Phone number" id="no_telp" type="text" class="form-control"
+                                               name="no_telp"
                                                value="{{ $user->no_telp }}" onkeypress="return hanyaAngka(event, false)"
                                                maxlength="13" required autofocus>
                                         <span class="glyphicon glyphicon-phone form-control-feedback"></span>
@@ -83,7 +87,10 @@
                                     </div>
                                 </div>
                                 <div class="form-group{{ $errors->has('gambar_user') ? ' has-error' : '' }} has-feedback">
-                                    <label for="gambar_user" class="col-md-4 control-label">Avatar</label>
+                                    <label for="gambar_user" class="col-md-4 control-label">
+                                        <img title="avatar" src="{{asset('storage/member/'.$user->gambar_user)}}"
+                                             style="width: 55%" alt="Avatar">
+                                    </label>
                                     <div class="col-md-6">
                                         <div class="input-group">
                                             <label class="input-group-btn">
@@ -112,7 +119,8 @@
                                     <label for="email" class="col-md-4 control-label">E-Mail Address</label>
 
                                     <div class="col-md-6">
-                                        <input id="email" type="email" class="form-control" name="email"
+                                        <input placeholder="E-mail" id="email" type="email" class="form-control"
+                                               name="email"
                                                value="{{ $user->email }}" required>
                                         <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
                                         @if ($errors->has('email'))
@@ -126,7 +134,8 @@
                                 <div class="form-group{{ session('password') ? ' has-error' : '' }} has-feedback">
                                     <label for="password" class="col-md-4 control-label">Current Password</label>
                                     <div class="col-md-6">
-                                        <input id="password" type="password" class="form-control" name="password"
+                                        <input placeholder="Current password" id="password" type="password"
+                                               class="form-control" name="password"
                                                required>
                                         <span class="glyphicon glyphicon-lock form-control-feedback"></span>
                                         @if (session('status'))
@@ -141,7 +150,8 @@
                                     <label for="password" class="col-md-4 control-label">New Password</label>
 
                                     <div class="col-md-6">
-                                        <input id="password" type="password" class="form-control" name="new_password"
+                                        <input placeholder="New password" id="password" type="password"
+                                               class="form-control" name="new_password"
                                                required>
                                         <span class="glyphicon glyphicon-lock form-control-feedback"></span>
                                         @if ($errors->has('new_password'))
@@ -156,7 +166,8 @@
                                         Password</label>
 
                                     <div class="col-md-6">
-                                        <input id="password-confirm" type="password" class="form-control"
+                                        <input placeholder="Retype password" id="password-confirm" type="password"
+                                               class="form-control"
                                                name="password_confirmation" required>
                                         <span class="glyphicon glyphicon-lock form-control-feedback"></span>
                                         @if ($errors->has('password_confirmation'))

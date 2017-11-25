@@ -101,8 +101,8 @@
             </div>
         </div>
     </div>
-    <script src="{{asset('datatables/jquery.dataTables.min.js')}}"></script>
-    <script src="{{asset('datatables/dataTables.bootstrap.min.js')}}"></script>
+    <script src="{{asset('plugins/datatables/jquery.dataTables.min.js')}}"></script>
+    <script src="{{asset('plugins/datatables/dataTables.bootstrap.min.js')}}"></script>
     <script>
         $(function () {
             $("#example1").DataTable();

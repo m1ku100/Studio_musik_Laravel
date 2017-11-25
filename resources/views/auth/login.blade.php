@@ -16,13 +16,20 @@
                 <div class="col-lg-8 col-lg-offset-2">
                     <div class="w3-panel w3-card">
                         <div class="panel-body wow fadeInUp" data-wow-duration="1s" data-wow-delay=".3s">
+                            @if($token && $recaptcha)
+                                <div class="alert alert-success">
+                                    <strong>Confirmed!</strong> Anda 100% manusia yang hidup dan bukanlah sebuah robot.
+                                    Silahkan login dengan akun anda.
+                                </div>
+                            @endif
                             <form class="form-horizontal" role="form" method="POST" action="{{ route('login') }}">
                                 {{ csrf_field() }}
                                 <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }} has-feedback">
                                     <label for="email" class="col-md-4 control-label">E-Mail Address</label>
 
                                     <div class="col-md-6">
-                                        <input id="email" type="email" class="form-control" name="email"
+                                        <input placeholder="E-mail" id="email" type="email" class="form-control"
+                                               name="email"
                                                value="{{ old('email') }}" required autofocus>
                                         <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
                                         @if ($errors->has('email'))
@@ -37,7 +44,8 @@
                                     <label for="password" class="col-md-4 control-label">Password</label>
 
                                     <div class="col-md-6">
-                                        <input id="password" type="password" class="form-control" name="password"
+                                        <input placeholder="Password" id="password" type="password" class="form-control"
+                                               name="password"
                                                required>
                                         <span class="glyphicon glyphicon-lock form-control-feedback"></span>
                                         @if ($errors->has('password'))

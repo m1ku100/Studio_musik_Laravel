@@ -11,7 +11,7 @@
     <link href="{{asset('css/bootstrap-social-gh-pages/bootstrap-social.css')}}" rel="stylesheet">
     <link href="{{asset('css/bootstrap-social-gh-pages/assets/css/font-awesome.css')}}" rel="stylesheet">
 
-    <link href="{{asset('datatables/dataTables.bootstrap.css')}}" rel="stylesheet">
+    <link href="{{asset('plugins/datatables/dataTables.bootstrap.css')}}" rel="stylesheet">
 
     <link rel="shortcut icon" type="image/x-icon" href="{{asset('img/favicon.ico')}}">
     <link rel="stylesheet" href="{{asset('css/bootstrap.min.css')}}">

@@ -35,4 +35,24 @@ return [
         'secret' => env('STRIPE_SECRET'),
     ],
 
+    'facebook' => [
+        'client_id' => '126120477946908',
+        'client_secret' => '007b24704b98233486cc7b95c5f0eec6',
+        'redirect' => 'http://localhost:2124/auth/facebook/callback',
+    ],
+    'twitter' => [
+        'client_id' => 'Yy8YbU6tgCbR9TvLskKGEEHKY',
+        'client_secret' => 'YEacxGFFE823DMcw1FSCkdDQ6LOxQQ0klfBkwLEE6kpBUl9j75',
+        'redirect' => 'http://localhost:2124/auth/twitter/callback',
+    ],
+    'google' => [
+        'client_id' => '354155190329-ob6ala0c40banbv4nu8ek5qvuh56opna.apps.googleusercontent.com',
+        'client_secret' => '7PFi8hO3VvLqU_xjbwe2jAVZ',
+        'redirect' => 'http://localhost:2124/auth/google/callback',
+    ],
+    'github' => [
+        'client_id' => '5c709c7f72eb381511ab',
+        'client_secret' => '255a00becbc485fa577658a299a9b3af24c00f30',
+        'redirect' => 'http://localhost:2124/auth/github/callback',
+    ],
 ];
