@@ -33,6 +33,9 @@
     <!-- Google Font -->
     <link rel="stylesheet"
           href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
+    <script src="{{ asset('sweetalert2/sweetalert2.min.js') }}"></script>
+    <link rel="stylesheet" href="{{ asset('/sweetalert2/sweetalert2.min.css') }}">
+    @yield('styles')
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
 <div class="wrapper">
@@ -60,10 +63,10 @@
                     <li class="dropdown messages-menu">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                             <i class="fa fa-envelope-o"></i>
-                            <span class="label label-success">{{$feedback}}</span>
+                            <span class="label label-success">0</span>
                         </a>
                         <ul class="dropdown-menu">
-                            <li class="header">You have {{$feedback}} messages</li>
+                            <li class="header">You have 0 messages</li>
                             <li>
                                 <!-- inner menu: contains the actual data -->
                                 <ul class="menu">
@@ -146,7 +149,7 @@
                                         <li>
                                             <a href="{{url('admin/tables#feedback')}}">
                                                 @if($feedback > 1)
-                                                    <i class="fa fa-envelope text-red"></i> We got {{$feedback}} new
+                                                    <i class="fa fa-envelope text-red"></i> We got 0 new
                                                     feedback
                                                     today
                                                 @else
@@ -294,12 +297,10 @@
             </span>
                     </a>
                     <ul class="treeview-menu">
-                        <li><a href="{{url('admin/studiocontent#addstudio')}}"><i
-                                        class="fa fa-pencil-square-o text-aqua"></i> Add Studio</a>
+                        <li><a href="{{ route('studio.index') }}"><i
+                                        class="fa fa-pencil-square-o text-aqua"></i> View Studio</a>
                         </li>
-                        <li><a href="{{url('admin/studiocontent#studio')}}"><i class="fa fa-table text-aqua"></i> View
-                                Studio</a>
-                        </li>
+
                     </ul>
                 </li>
                 <li class="treeview">
@@ -310,7 +311,7 @@
             </span>
                     </a>
                     <ul class="treeview-menu">
-                        <li><a href="{{url('admin/recordercontent#addrecorder')}}"><i
+                        <li><a href="{{ route('jenis-recorder.index') }}"><i
                                         class="fa fa-pencil-square-o text-teal"></i> Add
                                 Recorder</a></li>
                         <li><a href="{{url('admin/recordercontent#recorder')}}"><i class="fa fa-table text-teal"></i>
@@ -325,6 +326,8 @@
 
     <!-- Content Wrapper. Contains page content -->
 @yield('content')
+
+
 <!-- /.content-wrapper -->
 
     <footer class="main-footer">
@@ -598,5 +601,7 @@
 
     });
 </script>
+@yield('scripts')
 </body>
 </html>
+

@@ -13,7 +13,7 @@ class studio extends Model
 
     public function instruments()
     {
-        return $this->hasMany(instrument::class);
+        return $this->hasMany(new_ins::class);
     }
 
     public function order_studios()

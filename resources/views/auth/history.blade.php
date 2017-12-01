@@ -57,24 +57,37 @@
                                 <thead>
                                 <tr class="bg-primary">
                                     <th>ID Order</th>
-                                    <th>Customer</th>
-                                    <th>Admin</th>
-                                    <th>Booking Date</th>
                                     <th>Expired Date</th>
+                                    <th>Studio</th>
                                     <th>Status</th>
                                     <th>Due_at</th>
+                                    <th></th>
                                 </tr>
                                 </thead>
                                 <tbody>
                                 @foreach($order as $row)
                                     <tr>
-                                        <td>{{$row->id_order}}</td>
-                                        <td>{{$row->user_id}}</td>
-                                        <td>{{$row->pengurus_id}}</td>
-                                        <td>{{$row->tgl_booking}}</td>
+                                        <td>{{$row->id}}</td>
                                         <td>{{$row->tgl_exp}}</td>
+                                    @foreach($studio as $st)
+                                        @if($st->order_id==$row->id)
+                                            @foreach($studiode as $dt)
+                                                @if($dt->id==$st->studio_id)
+                                                        <td>{{$dt->nama_studio}}</td>
+                                                    @endif
+                                                @endforeach
+                                            @endif
+                                        @endforeach
                                         <td>{{$row->status_book}}</td>
-                                        <td>{{$row->updated_at}}</td>
+                                        <td>{{$row->updated_at->diffForHumans()}}</td>
+                                        @if($row->status_book=='Proses')
+                                            <td>waiting</td>
+                                        @elseif($row->tgl_exp > $datadate && $row->status_book=='Pembayaran')
+                                            <td><a href="/konfirmasi/{{\Illuminate\Support\Facades\Crypt::encrypt($row->id)}}">konfirmasi</a></td>
+                                        @else
+                                            <td>expired</td>
+                                        @endif
+
                                     </tr>
                                 @endforeach
                                 </tbody>

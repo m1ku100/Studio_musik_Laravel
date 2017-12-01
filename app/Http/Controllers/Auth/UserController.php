@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\order;
+use App\order_studio;
+use App\studio;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -74,9 +76,15 @@ class UserController extends Controller
 
     public function showOrderHistory(User $user)
     {
+        if (function_exists('date_default_timezone_set')) date_default_timezone_set('Asia/Jakarta');
+        $date1 = date('Y-m-d');
+        $datadate = date_create($date1);
         $count = order::count();
-        $order = order::all();
-        return view('auth.history', compact('user', 'count', 'order'));
+        $order = order::orderBy('created_at', 'desc')
+            ->get();
+        $studio= order_studio::all();
+        $studiode=studio::all();
+        return view('auth.history', compact('studiode','studio','user', 'count', 'order','datadate'));
     }
 
     public function printOrderHistory(User $user)

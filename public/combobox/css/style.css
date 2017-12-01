@@ -1,0 +1,39 @@
+#label {
+  font-weight: bold;  
+}
+
+#label,
+#description,
+#error {
+  padding-bottom: 10px;
+}
+
+#combobox {
+  border: 1px solid black;
+  border-radius: 3px;
+  padding: 5px;
+  width: 120px;
+  cursor: pointer;
+}
+
+#listbox {
+  display: none;
+}
+
+.option {
+  cursor: pointer;  
+}
+
+.option:hover, .option.selected {
+  text-decoration: underline;
+}
+
+#error {
+  display: none;
+  color: red;
+}
+
+#toggleError {
+  margin-top: 30px;
+  
+}
