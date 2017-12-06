@@ -1,4 +1,48 @@
 @extends('layouts.admin.admin_mst_dashboard')
+@section('sidenav')
+    <ul class="sidebar-menu" data-widget="tree">
+        <li class="header">FROM USERS</li>
+        <li class="active treeview menu-open">
+            <a href="{{route('admin.dashboard')}}">
+                <i class="fa fa-dashboard"></i> <span>Dashboard</span>
+            </a>
+        </li>
+        <li class="treeview">
+            <a href="#">
+                <i class="fa fa-table"></i> <span>Tables</span>
+                <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
+            </a>
+            <ul class="treeview-menu">
+                <li><a href="{{url('admin/tables#studio')}}"><i class="fa fa-music text-aqua"></i>Order Request</a>
+                <li><a href="{{url('admin/tables#member')}}"><i class="fa fa-users text-yellow"></i> Member
+                        Lists</a></li>
+                </li>
+                <li><a href="{{url('admin/tables#feedback')}}"><i class="fa fa-comments text-red"></i> Feedback
+                        Received</a></li>
+            </ul>
+        </li>
+        <li class="header">FOR USERS</li>
+        <li class="treeview">
+            <a href="#">
+                <i class="fa fa-building"></i> <span>Studios</span>
+                <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
+            </a>
+            <ul class="treeview-menu">
+                <li><a href="{{ route('studio.index') }}#studio"><i
+                                class="fa fa-music text-aqua"></i> Practice Studio</a>
+                </li>
+                <li><a href="{{ route('studio.index') }}#form"><i
+                                class="fa fa-video-camera text-teal"></i> Recorder Studio</a>
+                </li>
+
+            </ul>
+        </li>
+    </ul>
+@endsection
 @section('content')
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
@@ -22,17 +66,18 @@
                     <!-- small box -->
                     <div class="small-box bg-aqua">
                         <div class="inner">
-                            <h3>{{$stud_order}}</h3>
-                            @if($stud_order > 1)
-                                <p>New Studio Orders</p>
+                            <h3>{{$countst=count($dt_studio)}}</h3>
+                            @if($countst > 1)
+                                <p>New Practice Studio Orders</p>
                             @else
-                                <p>New Studio Order</p>
+                                <p>New Practice Studio Order</p>
                             @endif
                         </div>
                         <div class="icon">
-                            <i class="ion ion-bag"></i>
+                            <i class="ion ion-music-note"></i>
                         </div>
-                        <a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+                        <a href="{{url('admin/tables#studio')}}" class="small-box-footer">More info <i
+                                    class="fa fa-arrow-circle-right"></i></a>
                     </div>
                 </div>
                 <!-- ./col -->
@@ -40,17 +85,18 @@
                     <!-- small box -->
                     <div class="small-box bg-green">
                         <div class="inner">
-                            <h3>{{$rec_order}}</h3>
-                            @if($rec_order > 1)
-                                <p>New Recorder Orders</p>
+                            <h3>{{$countrec=count($dt_recorder)}}</h3>
+                            @if($countrec > 1)
+                                <p>New Recorder Studio Orders</p>
                             @else
-                                <p>New Recorder Order</p>
+                                <p>New Recorder Studio Order</p>
                             @endif
                         </div>
                         <div class="icon">
-                            <i class="ion ion-stats-bars"></i>
+                            <i class="ion ion-videocamera"></i>
                         </div>
-                        <a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+                        <a href="{{url('admin/tables#studio')}}" class="small-box-footer">More info <i
+                                    class="fa fa-arrow-circle-right"></i></a>
                     </div>
                 </div>
                 <!-- ./col -->
@@ -58,8 +104,8 @@
                     <!-- small box -->
                     <div class="small-box bg-yellow">
                         <div class="inner">
-                            <h3>{{$member}}</h3>
-                            @if($member > 1)
+                            <h3>{{$countus=count($dt_user)}}</h3>
+                            @if($countus > 1)
                                 <p>New Members</p>
                             @else
                                 <p>New Member</p>
@@ -68,7 +114,8 @@
                         <div class="icon">
                             <i class="ion ion-person-add"></i>
                         </div>
-                        <a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+                        <a href="{{url('admin/tables#member')}}" class="small-box-footer">More info <i
+                                    class="fa fa-arrow-circle-right"></i></a>
                     </div>
                 </div>
                 <!-- ./col -->
@@ -76,13 +123,14 @@
                     <!-- small box -->
                     <div class="small-box bg-red">
                         <div class="inner">
-                            <h3>{{$feedback}}</h3>
+                            <h3>{{count($dt_feedback)}}</h3>
                             <p>New Feedback</p>
                         </div>
                         <div class="icon">
-                            <i class="ion ion-pie-graph"></i>
+                            <i class="ion ion-chatbubble-working"></i>
                         </div>
-                        <a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+                        <a href="{{url('admin/tables#feedback')}}" class="small-box-footer">More info <i
+                                    class="fa fa-arrow-circle-right"></i></a>
                     </div>
                 </div>
                 <!-- ./col -->
@@ -94,8 +142,8 @@
                 <div class="col-md-6">
                     <div class="box box-info">
                         <div class="box-header with-border">
-                            <i class="fa fa-globe"></i>
-                            <h3 class="box-title">Latest Studio Orders</h3>
+                            <i class="fa fa-music"></i>
+                            <h3 class="box-title">Latest Practice Studio Orders</h3>
 
                             <div class="box-tools pull-right">
                                 <button type="button" class="btn btn-box-tool" data-widget="collapse"><i
@@ -112,17 +160,36 @@
                                     <thead>
                                     <tr>
                                         <th>Order ID</th>
+                                        <th>Studio</th>
                                         <th>Customer Name</th>
-                                        <th>Destination</th>
-                                        <th>Departure</th>
+                                        <th>Time Order</th>
+                                        <th>Due_at</th>
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    <tr>
-                                        <td>1111</td>
-                                        <td><span class="label label-info">Aaaa</span></td>
-                                        <td>123123</td>
-                                    </tr>
+                                    @if($lt_studio->isEmpty())
+                                        <tr>
+                                            <td colspan="5" align="center"> Data empty</td>
+                                        </tr>
+                                    @endif
+                                    @foreach($lt_studio as $lts)
+                                        <tr>
+                                            <td>{{$lts->order_id}}</td>
+                                            <?php $comments = App\order::find($lts->order_id) ?>
+                                            <?php $comments2 = App\User::find($comments->user_id) ?>
+                                            <td><span class="label label-info">{{$lts->studio->nama_studio}}
+                                                </span></td>
+                                            <td>{{$comments2->name}}</td>
+                                            <td>
+                                                {{\Carbon\Carbon::createFromFormat('Y-m-d H:i:s',$lts->waktu_mulai)->format('D, j M Y')}}
+                                                <br>
+                                                {{\Carbon\Carbon::createFromFormat('Y-m-d H:i:s',$lts->waktu_mulai)->format('H:i')}}
+                                                - {{\Carbon\Carbon::createFromFormat('Y-m-d H:i:s',$lts->waktu_habis)->format('H:i')}}
+                                                WIB
+                                            </td>
+                                            <td>{{$lts->created_at->diffForHumans()}}</td>
+                                        </tr>
+                                    @endforeach
                                     </tbody>
                                 </table>
                             </div>
@@ -141,8 +208,8 @@
                 <div class="col-md-6">
                     <div class="box box-success">
                         <div class="box-header with-border">
-                            <i class="fa fa-bus"></i>
-                            <h3 class="box-title">Latest Recorder Orders</h3>
+                            <i class="fa fa-video-camera"></i>
+                            <h3 class="box-title">Latest Recorder Studio Orders</h3>
 
                             <div class="box-tools pull-right">
                                 <button type="button" class="btn btn-box-tool" data-widget="collapse"><i
@@ -159,20 +226,34 @@
                                     <thead>
                                     <tr>
                                         <th>Order ID</th>
+                                        <th>Paket</th>
                                         <th>Customer Name</th>
-                                        <th>Destination</th>
-                                        <th>Departure</th>
+                                        <th>Time Order</th>
+                                        <th>Due_at</th>
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    <tr>
-                                        <td>13123</td>
-                                        <td>adasdasd</td>
-                                        <td><span class="label label-success">adssad <i
-                                                        class="fa fa-long-arrow-right"></i> adasdsa</span>
-                                        </td>
-                                        <td>21321</td>
-                                    </tr>
+                                    @if($lt_recorder->isEmpty())
+                                        <tr>
+                                            <td colspan="5" align="center"> Data empty</td>
+                                        </tr>
+                                    @endif
+                                    @foreach($lt_recorder as $lts)
+                                        <tr>
+                                            <td>{{$lts->order_id}}</td>
+                                            <?php $comments = App\order::find($lts->order_id) ?>
+                                            <?php $comments2 = App\User::find($comments->user_id) ?>
+                                            <td><span class="label label-info">{{App\order_recorder::find($lts -> id)->jenis_recorder->nama_recorder}}
+                                                </span></td>
+                                            <td>{{$comments2->name}}</td>
+                                            <td>
+                                                {{\Carbon\Carbon::createFromFormat('Y-m-d',$lts->awal)->format('D, j M Y')}}
+                                                <br>
+                                                10:00 - 22:00WIB
+                                            </td>
+                                            <td>{{$lts->created_at->diffForHumans()}}</td>
+                                        </tr>
+                                    @endforeach
                                     </tbody>
                                 </table>
                             </div>
@@ -180,7 +261,7 @@
                         </div>
                         <!-- /.box-body -->
                         <div class="box-footer clearfix">
-                            <a href="{{url('admin/tables#Recorder')}}"
+                            <a href="{{url('admin/tables#studio')}}"
                                class="btn btn-sm btn-success btn-flat pull-right">View
                                 All
                                 Recorder Orders</a>
@@ -194,7 +275,7 @@
                 <div class="col-md-6">
                     <div class="box box-info">
                         <div class="box-header with-border">
-                            <i class="fa fa-globe"></i>
+                            <i class="fa fa-music"></i>
                             <h3 class="box-title">Recently Added Studio Contents</h3>
 
                             <div class="box-tools pull-right">
@@ -208,26 +289,29 @@
                         <!-- /.box-header -->
                         <div class="box-body">
                             <ul class="products-list product-list-in-box">
+                                @foreach($lt_sstudio as $inst)
                                 <li class="item">
                                     <div class="product-img">
-                                        <img src="#" alt="Studio Image"/>
+                                        <img src="{{asset($inst->gambar_studio)}}" alt="{{$inst->nama_studio}}"/>
                                     </div>
                                     <div class="product-info">
                                         <a href="#"
-                                           class="product-title">aaa
-                                            &mdash; vvvv
-                                            <span class="label label-info pull-right">Rp2222
-                                                    / orang</span></a>
+                                           class="product-title">{{$inst->nama_studio}}
+
+                                            <span class="label label-info pull-right">Rp {{number_format($inst->harga_studio,2,',','.')}}
+                                                / Hours</span></a>
                                         <span class="product-description">
                                                 asdsadasd &hellip;
                                             </span>
                                     </div>
                                 </li>
+                                @endforeach
+
                             </ul>
                         </div>
                         <!-- /.box-body -->
                         <div class="box-footer text-center">
-                            <a href="{{url('admin/Studiocontent#Studio')}}" class="uppercase">View All Studio</a>
+                            <a href="{{ route('studio.index') }}" class="uppercase">View All Studio</a>
                         </div>
                         <!-- /.box-footer -->
                     </div>
@@ -235,7 +319,7 @@
                 <div class="col-md-6">
                     <div class="box box-success">
                         <div class="box-header with-border">
-                            <i class="fa fa-bus"></i>
+                            <i class="fa fa-video-camera"></i>
                             <h3 class="box-title">Recently Added Recorder Contents</h3>
 
                             <div class="box-tools pull-right">
@@ -249,15 +333,16 @@
                         <!-- /.box-header -->
                         <div class="box-body">
                             <ul class="products-list product-list-in-box">
+                                @foreach($lt_jenis_recorder as $rec)
                                 <li class="item">
                                     <div class="product-img">
-                                        <img src="/images/Recorder/bus/pahala_kencana1.JPG" alt="Studio Image"/>
+                                        <img src="#" alt="{{$rec->nama_recorder}}"/>
                                     </div>
                                     <div class="product-info">
                                         <a href="#"
-                                           class="product-title">asdasd
-                                            <span class="label label-success pull-right">123
-                                                    / orang</span></a>
+                                           class="product-title">{{$rec->nama_recorder}}
+                                            <span class="label label-success pull-right">{{$rec->harga}}
+                                                / {{$rec->batas_hari}}</span></a>
                                         <span class="product-description">
                                                asdasd &mdash;
                                                 Destination: asdasd <i
@@ -265,11 +350,12 @@
                                             </span>
                                     </div>
                                 </li>
+                                @endforeach
                             </ul>
                         </div>
                         <!-- /.box-body -->
                         <div class="box-footer text-center">
-                            <a href="{{url('admin/Recordercontent#Recorder')}}" class="uppercase">View All Recorder</a>
+                            <a href="{{ route('studio.index') }}" class="uppercase">View All Recorder</a>
                         </div>
                         <!-- /.box-footer -->
                     </div>

@@ -26,7 +26,277 @@
     <link rel="stylesheet" href="{{asset('css/style.css')}}">
     <link rel="stylesheet" href="{{asset('css/w3.css')}}">
     <link rel="stylesheet" href="{{asset('css/responsive.css')}}">
+
+    <link rel="stylesheet" href="{{asset('jquery-ui-1.12.1/jquery-ui.css/')}}">
+    <script src="{{asset('jquery-ui-1.12.1/external/jquery/jquery.js')}}"></script>
+    <script src="{{asset('jquery-ui-1.12.1/jquery-ui.js')}}"></script>
+    <script src="{{asset('jquery-ui-1.12.1/datepicker-id.js')}}"></script>
     <script src="{{asset('js/vendor/modernizr-2.8.3.min.js')}}"></script>
+
+    <style>
+        .markholiday .ui-state-default {
+            color: blue;
+        }
+
+        #daftar select {
+            height: 35px;
+        }
+
+        .btn-common2 {
+            color: #ffffff;
+            border: 2px solid #000000;
+            background-color: #000000;
+            position: relative;
+            z-index: 1;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+
+        .btn-common2:hover {
+            color: #000000;
+            font-weight: bold;
+            background-color: transparent;
+            border: 2px solid #000000;
+            transition: all 0.5s ease-in-out;
+            -moz-transition: all 0.5s ease-in-out;
+            -webkit-transition: all 0.5s ease-in-out;
+        }
+
+        #form_xpro .btn {
+            margin: 0;
+        }
+
+        .progress {
+            display: block;
+            width: 100%;
+            height: 12px;
+            position: relative;
+            z-index: 5;
+            padding-right: 8px;
+            padding-top: 2px;
+        }
+
+        @media all and (min--moz-device-pixel-ratio: 0) and (min-resolution: 30dpcm) {
+            .progress {
+                height: 10px;
+            }
+        }
+
+        .progress[value] {
+            background-color: transparent;
+            border: 0;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            appearance: none;
+            border-radius: 0;
+        }
+
+        .progress[value]::-ms-fill {
+            background-color: #0074d9;
+            border: 0;
+        }
+
+        .progress[value]::-moz-progress-bar {
+            background-color: #0074d9;
+            margin-right: 8px;
+        }
+
+        .progress[value]::-webkit-progress-inner-element {
+            background-color: #eee;
+        }
+
+        .progress[value]::-webkit-progress-value {
+            background-color: #0074d9;
+        }
+
+        .progress[value]::-webkit-progress-bar {
+            background-color: #eee;
+        }
+
+        .progress-circle {
+            width: 24px;
+            height: 24px;
+            position: absolute;
+            right: 3px;
+            top: -5px;
+            z-index: 5;
+            border-radius: 50%;
+        }
+
+        .progress-circle:before {
+            content: "";
+            width: 6px;
+            height: 6px;
+            background: white;
+            border-radius: 50%;
+            display: block;
+            -webkit-transform: translate(-50%, -50%);
+            transform: translate(-50%, -50%);
+            position: absolute;
+            left: 50%;
+            top: 50%;
+        }
+
+        .progress-group {
+            margin-top: 36px;
+        }
+
+        @media (max-width: 991px) {
+            .progress-group {
+                margin-left: -18px;
+                margin-right: -18px;
+                -ms-flex-preferred-size: 100%;
+                flex-basis: 100%;
+                padding: 18px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .progress-group {
+                padding: 18px 18px 0;
+                margin-bottom: 12px;
+            }
+        }
+
+        .progress-group .title {
+            margin-bottom: 18px;
+        }
+
+        .progress-group .wrapper {
+            background: white;
+            border: 1px solid #eee;
+            border-radius: 12px;
+            height: 14px;
+            display: -webkit-box;
+            display: -ms-flexbox;
+            display: flex;
+            -webkit-filter: drop-shadow(0 0 1px rgba(0, 0, 0, 0.3));
+            filter: drop-shadow(0 0 1px rgba(0, 0, 0, 0.3));
+        }
+
+        .progress-group .step {
+            width: 20%;
+            position: relative;
+        }
+
+        .progress-group .step:after {
+            content: "";
+            height: 30px;
+            width: 30px;
+            background: white;
+            border-radius: 50%;
+            display: block;
+            position: absolute;
+            right: 0;
+            top: 50%;
+            -webkit-transform: translateY(-50%);
+            transform: translateY(-50%);
+        }
+
+        .progress-group .step:first-of-type .progress {
+            padding-left: 4px;
+        }
+
+        .progress-group .step:first-of-type .progress[value]::-moz-progress-bar {
+            border-radius: 5px 0 0 5px;
+        }
+
+        .progress-group .step:first-of-type .progress[value]::-webkit-progress-value {
+            border-radius: 5px 0 0 5px;
+        }
+
+        .progress-group .step:not(:first-of-type) .progress[value]::-moz-progress-bar {
+            border-radius: 0;
+        }
+
+        .progress-group .step:not(:first-of-type) .progress[value]::-webkit-progress-value {
+            border-radius: 0;
+        }
+
+        .progress-group .step .progress[value] + .progress-circle {
+            background: #eee;
+        }
+
+        .progress-group .step.step01 .progress[value]::-moz-progress-bar {
+            background-color: #23607d;
+        }
+
+        .progress-group .step.step01 .progress[value]::-webkit-progress-value {
+            background-color: #23607d;
+        }
+
+        .progress-group .step.step01 .progress[value="100"] + .progress-circle {
+            background-color: #23607d;
+        }
+
+        .progress-group .step.step02 .progress[value]::-moz-progress-bar {
+            background-color: #2686a4;
+        }
+
+        .progress-group .step.step02 .progress[value]::-webkit-progress-value {
+            background-color: #2686a4;
+        }
+
+        .progress-group .step.step02 .progress[value="100"] + .progress-circle {
+            background-color: #2686a4;
+        }
+
+        .progress-group .step.step03 .progress[value]::-moz-progress-bar {
+            background-color: #30a6cd;
+        }
+
+        .progress-group .step.step03 .progress[value]::-webkit-progress-value {
+            background-color: #30a6cd;
+        }
+
+        .progress-group .step.step03 .progress[value="100"] + .progress-circle {
+            background-color: #30a6cd;
+        }
+
+        .progress-group .step.step04 .progress[value]::-moz-progress-bar {
+            background-color: #26c4c3;
+        }
+
+        .progress-group .step.step04 .progress[value]::-webkit-progress-value {
+            background-color: #26c4c3;
+        }
+
+        .progress-group .step.step04 .progress[value="100"] + .progress-circle {
+            background-color: #26c4c3;
+        }
+
+        .progress-group .step.step05 .progress[value]::-moz-progress-bar {
+            background-color: #10C895;
+        }
+
+        .progress-group .step.step05 .progress[value]::-webkit-progress-value {
+            background-color: #10C895;
+        }
+
+        .progress-group .step.step05 .progress[value="100"] + .progress-circle {
+            background-color: #10C895;
+        }
+
+        .progress-labels {
+            display: -webkit-box;
+            display: -ms-flexbox;
+            display: flex;
+            -webkit-box-pack: justify;
+            -ms-flex-pack: justify;
+            justify-content: space-between;
+        }
+
+        .progress-labels .label {
+            text-align: center;
+            text-transform: uppercase;
+            margin: 12px 0;
+            width: 20%;
+            font-size: 11px;
+            padding-right: 24px;
+            font-weight: 600;
+            opacity: 0.7;
+        }
+    </style>
 </head>
 <body class="home-4">
 <!--[if lt IE 8]>
@@ -307,6 +577,7 @@
 <script src="{{asset('js/plugins.js')}}"></script>
 
 <!-- main js -->
+@yield('script')
 <script src="{{asset('js/main.js')}}"></script>
 <script type="text/javascript">
 

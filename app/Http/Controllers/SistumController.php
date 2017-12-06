@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Contact;
+use App\jenis_recorder;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Session;
@@ -11,7 +12,11 @@ class SistumController extends Controller
 {
     public function index()
     {
-        return view('user.home');
+        Session::forget('ok');
+//        $angka=493843434;
+//        $jadi = "Rp " . number_format($angka,2,',','.');
+        $recorder = jenis_recorder::all();
+        return view('user.home', compact('recorder'));
     }
 
     public function postContact(Request $request)

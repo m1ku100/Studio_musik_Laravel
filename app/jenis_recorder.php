@@ -12,6 +12,11 @@ class jenis_recorder extends Model
 
     public function orders()
     {
+        return $this->hasMany(order::class);
+    }
+
+    public function jenis_recorder()
+    {
         return $this->hasMany(jenis_recorder::class);
     }
 }

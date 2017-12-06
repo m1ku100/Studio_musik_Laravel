@@ -3,11 +3,16 @@
 namespace App\Http\Controllers;
 
 use App\Contact;
+use App\jen_alat;
+use App\new_ins;
 use App\order_recorder;
 use App\order_studio;
 use App\studio;
 use App\User;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Storage;
 use Yajra\Datatables\Datatables;
 
 class StudioController extends Controller
@@ -25,14 +30,55 @@ class StudioController extends Controller
 
     public function index()
     {
-        $rec_order = order_recorder::whereraw('created_at = curdate()')->count();
-        $stud_order = order_studio::whereraw('created_at = curdate()')->count();
-        $feedback = Contact::whereraw('created_at = curdate()')->count();
-        $feedback_t = Contact::whereraw('created_at = curdate()')->get();
-        $member = User::whereraw('created_at = curdate()')->count();
-        $notif = $rec_order + $stud_order + $feedback + $member;
+//set notif
+        $now = Carbon::now();
+        $lt_studio1 = order_studio::all();
+        $lt_recorder1 = order_recorder::all();
+        $user = User::all();
+        $contact = Contact::all();
+        $category = null;
+        $dt_studio = array();
+        $dt_recorder = array();
+        $dt_user = array();
+        $dt_feedback = array();
+        foreach ($lt_studio1 as $lts) {
+            $compare = $now->copy()->subDay()->lte($lts->created_at);
+            if ($compare == true) {
+                $dt_studio[] = array('id' => $lts->id, 'order_id' => $lts->order_id, 'studio' => 'practic ' . $lts->studio->nama_studio, 'harga' => $lts->harga,
+                    'total_waktu' => $lts->total_waktu, 'waktu_mulai' => $lts->waktu_mulai, 'waktu_habis' => $lts->waktu_habis);
+            }
+
+        }
+        foreach ($lt_recorder1 as $lts) {
+            $compare = $now->copy()->subDay()->lte($lts->created_at);
+            if ($compare == true) {
+                $dt_recorder[] = array('id' => $lts->id, 'order_id' => $lts->order_id, 'studio' => 'Recording ' . $lts->jenis_recorder->nama_recorder,
+                    'harga' => $lts->jenis_recorder->harga_recorder, 'awal' => $lts->awal);
+            }
+
+        }
+        foreach ($user as $lts) {
+            $compare = $now->copy()->subDay()->lte($lts->created_at);
+            if ($compare == true) {
+                $dt_user[] = array('id' => $lts->id, 'name' => $lts->name, 'nama_band' => $lts->nama_band,
+                    'alamat' => $lts->alamat, 'no_telp' => $lts->no_telp, 'email' => $lts->email);
+            }
+        }
+        foreach ($contact as $lts) {
+            $compare = $now->copy()->subDay()->lte($lts->created_at);
+            if ($compare == true) {
+                $photous = User::where('email', $lts->email)->first();
+                $dt_feedback[] = array('id' => $lts->id, 'name' => $lts->name, 'message' => $lts->message,
+                    'email' => $lts->email, 'created_at' => $lts->created_at, 'photo' => $photous->gambar_user);
+
+            }
+        }
+        $ins = new_ins::orderBy('id', 'desc')->get();
+        $st111 = studio::all();
+        $jnal = jen_alat::all();
+        $no = 0;
         $base_url = url('/studio');
-        return view('admin.studio.index', compact('base_url', 'rec_order', 'stud_order', 'feedback', 'feedback_t', 'member', 'notif'));
+        return view('admin.studio.index', compact('category', 'st111', 'jnal', 'no', 'ins', 'base_url', 'dt_feedback', 'dt_user', 'dt_recorder', 'dt_studio'));
     }
 
     /**
@@ -55,15 +101,17 @@ class StudioController extends Controller
     public function store(Request $request)
     {
         $input = $request->all();
-        $input['gambar_studio'] = null;
-        $fillnames = md5($request->nama_studio.''.$request->id.''.str_random(2));
 
-        if ($request->hasFile('gambar_studio')) {
-            $input['gambar_studio'] = '/upload/photo/' . str_slug($fillnames, '-') . '.' . $request->gambar_studio->getClientOriginalExtension();
-            $request->gambar_studio->move(public_path('/upload/photo/'), $input['gambar_studio']);
+        $input['gambar'] = null;
+        $fillnames = md5($request->nama_inst . '' . $request->studio_id . '' . str_random(2));
+
+        if ($request->hasFile('gambar')) {
+            $input['gambar'] = '/instrument/' . str_slug($fillnames, '-') . '.' . $request->gambar->getClientOriginalExtension();
+            $request->gambar->storeAs('public', $input['gambar']);
+//            $request->gambar->move(public_path('/upload/photo/'), $input['gambar_studio']);
         }
 
-        studio::create($input);
+        new_ins::create($input);
 
         Session::flash('berhasil', 'Successfully, added');
         return back();
@@ -90,7 +138,55 @@ class StudioController extends Controller
      */
     public function edit($id)
     {
-        return $category = studio::findOrFail($id);
+        $now = Carbon::now();
+        $lt_studio1 = order_studio::all();
+        $lt_recorder1 = order_recorder::all();
+        $user = User::all();
+        $contact = Contact::all();
+
+        $dt_studio = array();
+        $dt_recorder = array();
+        $dt_user = array();
+        $dt_feedback = array();
+        foreach ($lt_studio1 as $lts) {
+            $compare = $now->copy()->subDay()->lte($lts->created_at);
+            if ($compare == true) {
+                $dt_studio[] = array('id' => $lts->id, 'order_id' => $lts->order_id, 'studio' => 'practic ' . $lts->studio->nama_studio, 'harga' => $lts->harga,
+                    'total_waktu' => $lts->total_waktu, 'waktu_mulai' => $lts->waktu_mulai, 'waktu_habis' => $lts->waktu_habis);
+            }
+
+        }
+        foreach ($lt_recorder1 as $lts) {
+            $compare = $now->copy()->subDay()->lte($lts->created_at);
+            if ($compare == true) {
+                $dt_recorder[] = array('id' => $lts->id, 'order_id' => $lts->order_id, 'studio' => 'Recording ' . $lts->jenis_recorder->nama_recorder,
+                    'harga' => $lts->jenis_recorder->harga_recorder, 'awal' => $lts->awal);
+            }
+
+        }
+        foreach ($user as $lts) {
+            $compare = $now->copy()->subDay()->lte($lts->created_at);
+            if ($compare == true) {
+                $dt_user[] = array('id' => $lts->id, 'name' => $lts->name, 'nama_band' => $lts->nama_band,
+                    'alamat' => $lts->alamat, 'no_telp' => $lts->no_telp, 'email' => $lts->email);
+            }
+        }
+        foreach ($contact as $lts) {
+            $compare = $now->copy()->subDay()->lte($lts->created_at);
+            if ($compare == true) {
+                $photous = User::where('email', $lts->email)->first();
+                $dt_feedback[] = array('id' => $lts->id, 'name' => $lts->name, 'message' => $lts->message,
+                    'email' => $lts->email, 'created_at' => $lts->created_at, 'photo' => $photous->gambar_user);
+
+            }
+        }
+        $ins = new_ins::orderBy('id', 'desc')->get();
+        $st111 = studio::all();
+        $jnal = jen_alat::all();
+        $no = 0;
+        $base_url = url('/studio');
+        $category = new_ins::findOrFail($id);
+        return view('admin.studio.index', compact('category', 'st111', 'jnal', 'no', 'ins', 'base_url', 'dt_feedback', 'dt_user', 'dt_recorder', 'dt_studio'));
     }
 
     /**
@@ -102,26 +198,24 @@ class StudioController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $input = $request->except('password');
-        $contact = studio::findOrFail($id);
+        $input = $request->all();
+        $contact = new_ins::findOrFail($id);
         $fillnames = md5($request->nama_studio.''.$request->id.''.str_random(10));;
 
-        $input['gambar_studio'] = $contact->gambar_studio;
+        $input['gambar'] = $contact->gambar;
 
-        if ($request->hasFile('gambar_studio')) {
-            if (!$contact->gambar_studio == NULL) {
-                unlink(public_path($contact->gambar_studio));
+        if ($request->hasFile('gambar')) {
+            if (!$contact->gambar == NULL) {
+//                unlink(public_path($contact->gambar));
+                Storage::delete('public' . $contact->gambar);
             }
-            $input['gambar_studio'] = '/upload/photo/' . str_slug($fillnames, '-') . '.' . $request->gambar_studio->getClientOriginalExtension();
-            $request->gambar_studio->move(public_path('/upload/photo/'), $input['gambar_studio']);
+            $input['gambar'] = '/instrument/' . str_slug($fillnames, '-') . '.' . $request->gambar->getClientOriginalExtension();
+            $request->gambar->storeAs('public', $input['gambar']);
+//            $request->gambar_studio->move(public_path('/upload/photo/'), $input['gambar_studio']);
         }
-
         $contact->update($input);
-
-        return response()->json([
-            'success' => true,
-            'message' => 'Studio Updated'
-        ]);
+        Session::flash('berhasil', 'Successfully, added');
+        return back();
     }
 
     /**
@@ -132,16 +226,16 @@ class StudioController extends Controller
      */
     public function destroy($id)
     {
-        $pengurus = studio::findOrFail($id);
+        $pengurus = new_ins::findOrFail($id);
 
-        if ($pengurus->gambar_studio != NULL) {
-            unlink(public_path($pengurus->gambar_studio));
+        if ($pengurus->gambar != NULL) {
+//            unlink(public_path($pengurus->gambar_studio));
+            Storage::delete('public' . $pengurus->gambar);
         }
-        studio::destroy($id);
+        new_ins::destroy($id);
 
-        return response()->json([
-            'success' => true
-        ]);
+        return back();
+
     }
 
     public function apiData()

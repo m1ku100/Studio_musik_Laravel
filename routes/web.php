@@ -17,6 +17,7 @@ Route::get('coba', 'user\OrderStudioController@coba');
 
 Route::group(['middleware'=>'auth:admin'], function () {
     Route::resource('jenis-recorder', 'JenisRecorderController');
+    Route::resource('jenis-recorder', 'JenisRecorderController');
     Route::group(['prefix' => 'jenis-recorder'], function () {
         Route::get('{id}/deleted', 'JenisRecorderController@destroy');
         Route::get('jenis-recorder/{id}', 'JenisRecorderController@update');
@@ -50,8 +51,8 @@ Route::get('findstudio2', 'user\OrderStudioController@findstudio2');
 
 Route::get('choice-studio', 'user\OrderStudioController@choice')->name('user.choice-studio');
 Route::prefix('order-studio')->group(function () {
-    Route::get('detail/{id}', 'user\OrderStudioController@show')->name('user.detail-studio');
     Route::get('options/{id}', 'user\OrderStudioController@order')->name('user.option-studio');
+    Route::get('schedule', 'user\ScheduleController@showSchedule')->name('schedule');
 
     Route::post('become-buyer', 'user\OrderStudioController@konfirmasi')->name('user.order-studio');
     Route::get('become-buyer/accept', 'user\OrderStudioController@pembayaran')->name('user.proses-studio');
@@ -62,6 +63,8 @@ Route::prefix('order-studio')->group(function () {
 //pembayaranstudio
 Route::prefix('konfirmasi')->group(function () {
     Route::get('{id}', 'user\KonfirmasiController@index')->name('user.konfirmasi-studio');
+    Route::get('edit/{id}', 'user\KonfirmasiController@edit')->name('user.editkon-studio');
+    Route::put('edit/{id}', 'user\KonfirmasiController@update')->name('user.updatekon-studio');
     Route::post('', 'user\KonfirmasiController@store')->name('user.prbayar-studio');
 });
 
@@ -70,6 +73,17 @@ Route::prefix('member')->group(function () {
     Route::put('{user}', 'Auth\UserController@updateAccount');
     Route::get('{user}/history', 'Auth\UserController@showOrderHistory');
     Route::get('{user}/history/print', 'Auth\UserController@printOrderHistory');
+    Route::get('{user}/{id}/report', 'Auth\UserController@showReport');
+    Route::get('{user}/{id}/print', 'Auth\UserController@printSukses');
+});
+
+//order recorder
+Route::prefix('order-recorder')->group(function () {
+    Route::get('/{id}', 'user\OrderRecorderController@index')->name('user.option-recorder');
+    Route::post('/', 'user\OrderRecorderController@become')->name('user.become-recorder');
+    Route::get('become-buyer/accept', 'user\OrderRecorderController@pembayaran')->name('user.proses-recorder');
+    Route::post('confirmation-buyer', 'user\OrderRecorderController@store')->name('user.buyer-recorder');
+
 });
 
 Route::prefix('admin')->group(function () {
@@ -88,10 +102,19 @@ Route::prefix('admin')->group(function () {
     Route::get('{admin}/settings', 'Admin\AdminController@showEditProfileForm');
     Route::put('{admin}', 'Admin\AdminController@updateAdmin');
 
+    Route::get('tables', 'Admin\MemberController@index')->name('admin.tables');
+    Route::get('tablesmember/{user}/banned', 'Admin\MemberController@destroy')->name('admin.tables.delete');
+    Route::get('tablesmember/{user}/restore', 'Admin\MemberController@restore')->name('admin.tables.delete');
+    Route::get('tablesmember/{konfirm}/{kode}', 'Admin\MemberController@store')->name('admin.tables.salah');
+
 });
 
 Route::resource('studio', 'StudioController');
 Route::prefix('studio')->group(function () {
+    Route::post('/', 'StudioController@store')->name('submit.studio.content');
+    Route::get('{id}/delete', 'StudioController@destroy')->name('delete.studio.content');
+    Route::get('{id}/edit')->name('edit.studio.content');
+    Route::put('{id}/edit/update', 'StudioController@update')->name('update.studio.content');
 });
 
 

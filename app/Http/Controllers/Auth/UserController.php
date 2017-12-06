@@ -3,11 +3,16 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\jenis_recorder;
+use App\konfirmasi_pembayaran;
 use App\order;
+use App\order_recorder;
 use App\order_studio;
 use App\studio;
 use App\User;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Session;
@@ -76,20 +81,72 @@ class UserController extends Controller
 
     public function showOrderHistory(User $user)
     {
-        if (function_exists('date_default_timezone_set')) date_default_timezone_set('Asia/Jakarta');
-        $date1 = date('Y-m-d');
-        $datadate = date_create($date1);
-        $count = order::count();
-        $order = order::orderBy('created_at', 'desc')
+        $time = Carbon::now();
+        $order = order::all();
+        $order1 = order::where('user_id', Auth::user()->id)->orderBy('created_at', 'desc')
             ->get();
-        $studio= order_studio::all();
-        $studiode=studio::all();
-        return view('auth.history', compact('studiode','studio','user', 'count', 'order','datadate'));
+
+        foreach ($order as $or) {
+            $ids = $or->id;
+            $aas = Carbon::createFromFormat('Y-m-d H:i:s', $or->tgl_exp);
+            $diff = $aas->diffInMinutes($time, false);
+            if ($or->status_book == "Pembayaran" && $diff > 0) {
+                order::
+                where('id', $ids)
+                    ->update(['status_book' => 'Gagal']);
+            }
+        }
+        $count = order::count();
+        $studio = order_studio::all();
+        $studiode = studio::all();
+        $recorder = order_recorder::all();
+        $recorderde = jenis_recorder::all();
+
+        return view('auth.history', compact('c', 'studiode', 'studio', 'user', 'count', 'order1', 'datadate', 'recorder', 'recorderde'));
     }
 
     public function printOrderHistory(User $user)
     {
-        $order = order::all();
+        $order = order::where('user_id', Auth::user()->id)->orderBy('created_at', 'desc')
+            ->get();
         return view('auth.print', compact('user', 'order'));
+    }
+
+    public function showReport($user, $id)
+    {
+        $order = order::findOrFail($id);
+        $user = User::findOrFail($user);
+        $recorder = order_recorder::where('order_id', $id)->first();
+        $studio = order_studio::where('order_id', $id)->first();
+        $pembayaran = konfirmasi_pembayaran::where('order_id', $id)->first();
+        if (!empty($recorder)) {
+            $status = 1;
+            $dt = order_recorder::where('order_id', $id)->first();
+        }
+        if (!empty($studio)) {
+            $status = 0;
+            $dt = order_studio::where('order_id', $id)->first();
+        }
+
+        return view('user.order_studio.report', compact('user', 'order', 'pembayaran', 'dt', 'status'));
+    }
+
+    public function printSukses($user, $id)
+    {
+        $order = order::findOrFail($id);
+        $user = User::findOrFail($user);
+        $recorder = order_recorder::where('order_id', $id)->first();
+        $studio = order_studio::where('order_id', $id)->first();
+        $pembayaran = konfirmasi_pembayaran::where('order_id', $id)->first();
+        if (!empty($recorder)) {
+            $status = 1;
+            $dt = order_recorder::where('order_id', $id)->first();
+        }
+        if (!empty($studio)) {
+            $status = 0;
+            $dt = order_studio::where('order_id', $id)->first();
+        }
+
+        return view('auth.printsukses', compact('user', 'order', 'pembayaran', 'dt', 'status'));
     }
 }

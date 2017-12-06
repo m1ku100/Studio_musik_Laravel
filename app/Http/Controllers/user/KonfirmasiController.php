@@ -57,7 +57,7 @@ class KonfirmasiController extends Controller
             $input['deskripsi'] = 'kosong';
             }
         $input['bukti_pembayaran'] = null;
-        $fillnames = md5($request->id.''.str_random(2));
+        $fillnames = md5($request->id . '' . str_random(4));
 
         if ($request->hasFile('bukti_pembayaran')) {
             $input['bukti_pembayaran'] = '/upload/pembayaran/' . str_slug($fillnames, '-') . '.' . $request->bukti_pembayaran->getClientOriginalExtension();
@@ -104,7 +104,9 @@ class KonfirmasiController extends Controller
      */
     public function edit($id)
     {
-        //
+        $edit = konfirmasi_pembayaran::where('order_id', Crypt::decrypt($id))->first();
+
+        return view('user.konfirmasi_studio.update', compact('edit'));
     }
 
     /**
@@ -116,7 +118,43 @@ class KonfirmasiController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        if (function_exists('date_default_timezone_set')) date_default_timezone_set('Asia/Jakarta');
+        if (function_exists('date_default_timezone_set')) date_default_timezone_set('Asia/Jakarta');
+        $date1 = date('Y-m-d');
+        $datadate2 = date_create($date1);
+        $c = date_format($datadate2, 'Y-m-d');
+        $contact = konfirmasi_pembayaran::findOrFail($id);
+        $input = $request->except('id');
+        $input['member_id'] = Auth::user()->id;
+        $input['tanggal_pembayaran'] = $c;
+
+
+        if ($request->deskripsi == null) {
+            $input['deskripsi'] = 'kosong';
+        }
+
+        $fillnames = md5($request->id . '' . str_random(4));
+        $input['bukti_pembayaran'] = $contact->bukti_pembayaran;
+
+        if ($request->hasFile('bukti_pembayaran')) {
+            if (!$contact->bukti_pembayaran == NULL) {
+                unlink(public_path($contact->bukti_pembayaran));
+            }
+            $input['bukti_pembayaran'] = '/upload/pembayaran/' . str_slug($fillnames, '-') . '.' . $request->bukti_pembayaran->getClientOriginalExtension();
+            $request->bukti_pembayaran->move(public_path('/upload/pembayaran/'), $input['bukti_pembayaran']);
+        }
+
+        $contact->update($input);
+        $contact2 = konfirmasi_pembayaran::findOrFail($id);
+
+        $flight = order::find($contact2->order_id);
+
+        $flight->status_book = 'Proses';
+
+        $flight->save();
+
+        return redirect(url('member/' . Auth::user()->id . '/history'));
+
     }
 
     /**

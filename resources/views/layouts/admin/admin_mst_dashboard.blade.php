@@ -33,7 +33,6 @@
     <!-- Google Font -->
     <link rel="stylesheet"
           href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
-    <script src="{{ asset('sweetalert2/sweetalert2.min.js') }}"></script>
     <link rel="stylesheet" href="{{ asset('/sweetalert2/sweetalert2.min.css') }}">
     @yield('styles')
 </head>
@@ -63,27 +62,29 @@
                     <li class="dropdown messages-menu">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                             <i class="fa fa-envelope-o"></i>
-                            <span class="label label-success">0</span>
+                            <span class="label label-success">{{$fb2=count($dt_feedback)}}</span>
                         </a>
                         <ul class="dropdown-menu">
-                            <li class="header">You have 0 messages</li>
+                            <li class="header">You have {{$fb2}} messages</li>
                             <li>
                                 <!-- inner menu: contains the actual data -->
                                 <ul class="menu">
-                                    @foreach($feedback_t as $row)
-                                        @if($feedback > 0)
+                                    @foreach($dt_feedback as $row)
+                                        @if($dt_feedback > 0)
                                             <li><!-- start message -->
-                                                <a href="#">
+                                                <a href="">
                                                     <div class="pull-left">
-                                                        <img src="{{asset('dist/img/user.png')}}" class="img-circle"
+                                                        <img src="{{asset('storage/member/'.$row['photo'])}}"
+                                                             class="img-circle"
                                                              alt="User Image">
                                                     </div>
                                                     <h4>
-                                                        {{$row->name}}
-                                                        <small><i class="fa fa-clock-o"></i> {{$row->updated_at}}
+                                                        {{$row['name']}}
+                                                        <small>
+                                                            <i class="fa fa-clock-o"></i> {{$row['created_at']->diffForHumans()}}
                                                         </small>
                                                     </h4>
-                                                    <p>{{$row->message}}</p>
+                                                    <p>{{substr($row['message'],0,7).'...'}}</p>
                                                 </a>
                                             </li>
                                     @endif
@@ -98,18 +99,25 @@
                     <li class="dropdown notifications-menu">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                             <i class="fa fa-bell-o"></i>
-                            <span class="label label-warning">{{$notif}}</span>
+                            <span class="label label-warning"><?php
+                                $rec = count($dt_recorder);
+                                $st1 = count($dt_studio);
+                                $fb1 = count($dt_feedback);
+                                $usr = count($dt_user);
+                                $notif1 = $st1 + $rec + $fb1 + $usr
+                                ?>
+                                {{$notif1}}</span>
                         </a>
                         <ul class="dropdown-menu">
-                            <li class="header">You have {{$notif}} notifications</li>
+                            <li class="header">You have {{$notif1}} notifications</li>
                             <li>
                                 <!-- inner menu: contains the actual data -->
                                 <ul class="menu">
-                                    @if($stud_order >= 1)
+                                    @if($notif1 >= 1)
                                         <li>
                                             <a href="{{url('admin/tables#studio')}}">
-                                                @if($stud_order > 1)
-                                                    <i class="fa fa-globe text-teal"></i> {{$stud_order}} new studio
+                                                @if(count($dt_recorder) > 1)
+                                                    <i class="fa fa-globe text-teal"></i> {{$st1}} new studio
                                                     orders submitted today
                                                 @else
                                                     <i class="fa fa-globe text-teal"></i> a new studio
@@ -118,11 +126,11 @@
                                             </a>
                                         </li>
                                     @endif
-                                    @if($rec_order >= 1)
+                                    @if($rec >= 1)
                                         <li>
                                             <a href="{{url('admin/tables#recorder')}}#">
-                                                @if($rec_order > 1)
-                                                    <i class="fa fa-bus text-teal"></i> {{$rec_order}} new recorder
+                                                @if($rec > 1)
+                                                    <i class="fa fa-bus text-teal"></i> {{$rec}} new recorder
                                                     orders submitted today
                                                 @else
                                                     <i class="fa fa-bus text-teal"></i> a new recorder
@@ -131,11 +139,11 @@
                                             </a>
                                         </li>
                                     @endif
-                                    @if($member >= 1)
+                                    @if($usr >= 1)
                                         <li>
                                             <a href="{{url('admin/tables#member')}}">
-                                                @if($member > 1)
-                                                    <i class="fa fa-users text-yellow"></i> {{$member}} new members
+                                                @if($usr > 1)
+                                                    <i class="fa fa-users text-yellow"></i> {{$usr}} new members
                                                     joined
                                                     today
                                                 @else
@@ -145,11 +153,11 @@
                                             </a>
                                         </li>
                                     @endif
-                                    @if($feedback >= 1)
+                                    @if($fb1 >= 1)
                                         <li>
                                             <a href="{{url('admin/tables#feedback')}}">
-                                                @if($feedback > 1)
-                                                    <i class="fa fa-envelope text-red"></i> We got 0 new
+                                                @if( $fb1> 1)
+                                                    <i class="fa fa-envelope text-red"></i> We got {{$fb1}} new
                                                     feedback
                                                     today
                                                 @else
@@ -263,63 +271,7 @@
             </form>
             <!-- /.search form -->
             <!-- sidebar menu: : style can be found in sidebar.less -->
-            <ul class="sidebar-menu" data-widget="tree">
-                <li class="header">FROM USERS</li>
-                <li class="active treeview menu-open">
-                    <a href="{{route('admin.dashboard')}}">
-                        <i class="fa fa-dashboard"></i> <span>Dashboard</span>
-                    </a>
-                </li>
-                <li class="treeview">
-                    <a href="#">
-                        <i class="fa fa-table"></i> <span>Tables</span>
-                        <span class="pull-right-container">
-              <i class="fa fa-angle-left pull-right"></i>
-            </span>
-                    </a>
-                    <ul class="treeview-menu">
-                        <li><a href="{{url('admin/tables#studio')}}"><i class="fa fa-globe text-aqua"></i> Studio Orders</a>
-                        </li>
-                        <li><a href="{{url('admin/tables#recorder')}}"><i class="fa fa-bus text-teal"></i> Recorder
-                                Orders</a></li>
-                        <li><a href="{{url('admin/tables#member')}}"><i class="fa fa-users text-yellow"></i> Member
-                                Lists</a></li>
-                        <li><a href="{{url('admin/tables#feedback')}}"><i class="fa fa-comments text-red"></i> Feedback
-                                Received</a></li>
-                    </ul>
-                </li>
-                <li class="header">FOR USERS</li>
-                <li class="treeview">
-                    <a href="#">
-                        <i class="fa fa-globe"></i> <span>Studio</span>
-                        <span class="pull-right-container">
-              <i class="fa fa-angle-left pull-right"></i>
-            </span>
-                    </a>
-                    <ul class="treeview-menu">
-                        <li><a href="{{ route('studio.index') }}"><i
-                                        class="fa fa-pencil-square-o text-aqua"></i> View Studio</a>
-                        </li>
-
-                    </ul>
-                </li>
-                <li class="treeview">
-                    <a href="#">
-                        <i class="fa fa-bus"></i> <span>Recorder</span>
-                        <span class="pull-right-container">
-              <i class="fa fa-angle-left pull-right"></i>
-            </span>
-                    </a>
-                    <ul class="treeview-menu">
-                        <li><a href="{{ route('jenis-recorder.index') }}"><i
-                                        class="fa fa-pencil-square-o text-teal"></i> Add
-                                Recorder</a></li>
-                        <li><a href="{{url('admin/recordercontent#recorder')}}"><i class="fa fa-table text-teal"></i>
-                                View
-                                Recorder</a>
-                    </ul>
-                </li>
-            </ul>
+            @yield('sidenav')
         </section>
         <!-- /.sidebar -->
     </aside>
@@ -556,6 +508,11 @@
 <script src="{{asset('dist/js/demo.js')}}"></script>
 <script src="{{asset('plugins/datatables/jquery.dataTables.min.js')}}"></script>
 <script src="{{asset('plugins/datatables/dataTables.bootstrap.min.js')}}"></script>
+<script src="{{ asset('sweetalert2/sweetalert2.min.js') }}"></script>
+<script src="{{ asset('dataTables/js/jquery.dataTables.min.js') }}"></script>
+<script src="{{ asset('dataTables/js/dataTables.bootstrap.min.js') }}"></script>
+<script src="{{ asset('js/validator.min.js') }}"></script>
+@yield('scripts')
 <script>
     $(function () {
         $("#example1").DataTable();
@@ -601,7 +558,7 @@
 
     });
 </script>
-@yield('scripts')
+
 </body>
 </html>
 

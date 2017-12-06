@@ -720,12 +720,12 @@
                         <div class="single-plan">
                             <div class="plan-inner">
                                 <div class="plan-head">
-                                    <div class="plan-name">START</div>
+                                    <div class="plan-name">Practice</div>
                                     <div class="plan-price">
-                                        <span class="plan-price-before">Rp</span>
-                                        <span class="plan-price-value">61.500</span>
+                                        <span class="plan-price-before">ON</span>
+                                        <span class="plan-price-value">Demand</span>
                                     </div>
-                                    <div class="plan-period">/2 hour</div>
+                                    <div class="plan-period">/1 hour</div>
                                 </div>
                                 <div class="plan-options">
                                     <ul>
@@ -734,97 +734,64 @@
                                         <li><span><strong>0</strong> Recordings</span></li>
                                         <li><span><strong>10GB</strong> Internet Space</span></li>
                                         <li><span><strong>HD</strong> Studio Sound</span></li>
-                                        <li><span class="plan-border"><strong>16/7</strong> Support</span></li>
+                                        <li><span class="plan-border"><strong>16/5</strong> Support</span></li>
                                     </ul>
                                 </div>
                                 <div class="sign-up basic">
-                                    <a href="#">ORDER</a>
+                                    <a href="order-studio/options/eyJpdiI6IlYxbXUyVDF0dHNwckNUenA5ZlBuMmc9PSIsInZhbHVlIjoiZks4enJXbXRaS01sOWI2OU9cL2VhV3c9PSIsIm1hYyI6IjRhYWExMDIwYmVlNzg0Y2RjNjI2M2QxYjE1OTA3MDM4ZDFjYzliMTU4MGMxODhlY2NlN2Y0ZGYzNWMwNjVkYmEifQ==">ORDER</a>
                                 </div>
                             </div>
                         </div>
                         <!-- single-plan end -->
                         <!-- single-plan start -->
-                        <div class="single-plan">
-                            <div class="plan-inner">
-                                <div class="plan-head">
-                                    <div class="plan-name">BUSINESS</div>
-                                    <div class="plan-price">
-                                        <span class="plan-price-before">Rp</span>
-                                        <span class="plan-price-value">750.000</span>
+                        @foreach($recorder as $rec)
+                            @if ($rec->nama_recorder=="Enterprise")
+                                <div class="single-plan standard-space">
+                                    <div class="plan-inner">
+                                        <div class="plan-head standard-b">
+                                            <div class="plan-popular">RECOMMENDED</div>
+                                            <div class="plan-name">{{$rec->nama_recorder}}</div>
+                                            <div class="plan-price">
+                                                <span class="plan-price-before">Rp</span>
+                                                <span class="plan-price-value">{{number_format($rec->harga_recorder,2,',','.')}}</span>
+                                            </div>
+                                            <div class="plan-period">/day</div>
+                                        </div>
+                                        <div class="plan-options">
+                                            <ul>
+                                                {!! $rec->deskripsi !!}
+                                            </ul>
+                                        </div>
+                                        <div class="sign-up professional">
+                                            <a href="{{url('order-recorder/'.\Illuminate\Support\Facades\Crypt::encryptString($rec->id))}}">ORDER</a>
+                                        </div>
                                     </div>
-                                    <div class="plan-period">/song</div>
                                 </div>
-                                <div class="plan-options">
-                                    <ul>
-                                        <li><span class="plan-border"><strong>20GB</strong> Storage</span></li>
-                                        <li><span><strong>Recording</strong> Studio</span></li>
-                                        <li><span><strong>20</strong> Recordings</span></li>
-                                        <li><span><strong>30GB</strong> Internet Space</span></li>
-                                        <li><span><strong>HD</strong> Studio Sound</span></li>
-                                        <li><span class="plan-border"><strong>16/7</strong> Support</span></li>
-                                    </ul>
-                                </div>
-                                <div class="sign-up professional">
-                                    <a href="#">ORDER</a>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- single-plan end -->
-                        <!-- single-plan start -->
-                        <div class="single-plan standard-space">
-                            <div class="plan-inner">
-                                <div class="plan-head standard-b">
-                                    <div class="plan-popular">RECOMMENDED</div>
-                                    <div class="plan-name">ENTERPRISE</div>
-                                    <div class="plan-price">
-                                        <span class="plan-price-before">Rp</span>
-                                        <span class="plan-price-value">1.500.000</span>
+                            @else
+                                <div class="single-plan">
+                                    <div class="plan-inner">
+                                        <div class="plan-head">
+                                            <div class="plan-name">{{$rec->nama_recorder}}</div>
+                                            <div class="plan-price">
+                                                <span class="plan-price-before">Rp</span>
+                                                <span class="plan-price-value">{{number_format($rec->harga_recorder,2,',','.')}}</span>
+                                            </div>
+                                            <div class="plan-period">/day</div>
+                                        </div>
+                                        <div class="plan-options">
+                                            <ul>
+                                                {!! $rec->deskripsi !!}
+                                            </ul>
+                                        </div>
+                                        <div class="sign-up professional">
+                                            <a href="{{url('order-recorder/'.\Illuminate\Support\Facades\Crypt::encryptString($rec->id))}}">ORDER</a>
+                                        </div>
                                     </div>
-                                    <div class="plan-period">/song</div>
                                 </div>
-                                <div class="plan-options">
-                                    <ul>
-                                        <li><span class="plan-border"><strong>30GB</strong> Storage</span></li>
-                                        <li><span><strong>Recording</strong> Studio</span></li>
-                                        <li><span><strong>30</strong> Recordings</span></li>
-                                        <li><span><strong>90GB</strong> Internet Space</span></li>
-                                        <li><span><strong>HD</strong> Studio Sound</span></li>
-                                        <li><span class="plan-border"><strong>16/7</strong> Support</span></li>
-                                    </ul>
-                                </div>
-                                <div class="sign-up most-popular-button">
-                                    <a href="#">ORDER</a>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- single-plan end -->
-                        <!-- single-plan start -->
-                        <div class="single-plan">
-                            <div class="plan-inner">
-                                <div class="plan-head">
-                                    <div class="plan-name">ADVANCED</div>
-                                    <div class="plan-price">
-                                        <span class="plan-price-before">Rp</span>
-                                        <span class="plan-price-value">3.000.000</span>
-                                    </div>
-                                    <div class="plan-period">/song</div>
-                                </div>
-                                <div class="plan-options">
-                                    <ul>
-                                        <li><span class="plan-border"><strong>50GB</strong> Storage</span></li>
-                                        <li><span><strong>Recording</strong> Studio</span></li>
-                                        <li><span><strong>50</strong> Recordings</span></li>
-                                        <li><span><strong>Unlimited</strong> Internet Space</span></li>
-                                        <li><span><strong>HD</strong> Studio Sound</span></li>
-                                        <li><span class="plan-border"><strong>16/7</strong> Support</span></li>
-                                    </ul>
-                                </div>
-                                <div class="sign-up premium">
-                                    <a href="#">ORDER</a>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- single-plan end -->
+                        @endif
+
+                    @endforeach
+                    <!-- single-plan end -->
                     </div>
                 </div>
             </div>
@@ -924,5 +891,13 @@
         </div>
     </div>
     <!-- popular-brand-area end -->
+    <script>
+        @if(\Session::has('ok'))
+        swal({
+            title: '{{ session('ok') }}',
+            type: 'info'
+        });
+        @endif
 
+    </script>
 @endsection

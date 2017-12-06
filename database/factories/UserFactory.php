@@ -38,10 +38,19 @@ $factory->define(App\ListTime2::class, function (Faker $faker) {
 
 $a=10;
     return [
-
-
         'waktu' => $a+1,
         'waktu_id' => 1,
+
+    ];
+});
+
+$factory->define(App\jenis_recorder::class, function (Faker $faker) {
+
+    return [
+        'nama_recorder' => $faker->unique()->randomElement(['Recorder Sopran', 'Recorder Sopranino', 'Recorder Alto']),
+        'deskripsi' => $faker->sentence(4),
+        'harga_recorder' => $faker->unique()->numerify($string = '####00000'),
+        'batas_hari' => $faker->numberBetween($min = 1, $max = 3),
 
     ];
 });

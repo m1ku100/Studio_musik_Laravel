@@ -58,6 +58,7 @@
                                 <tr class="bg-primary">
                                     <th>ID Order</th>
                                     <th>Expired Date</th>
+                                    <th>Time</th>
                                     <th>Studio</th>
                                     <th>Status</th>
                                     <th>Due_at</th>
@@ -65,25 +66,55 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                @foreach($order as $row)
+
+                                @foreach($order1 as $row)
                                     <tr>
                                         <td>{{$row->id}}</td>
-                                        <td>{{$row->tgl_exp}}</td>
-                                    @foreach($studio as $st)
-                                        @if($st->order_id==$row->id)
-                                            @foreach($studiode as $dt)
-                                                @if($dt->id==$st->studio_id)
-                                                        <td>{{$dt->nama_studio}}</td>
+                                        <td>{{\Illuminate\Support\Carbon::createFromFormat('Y-m-d H:i:s',$row->tgl_exp)->toDayDateTimeString()}}</td>
+                                        @foreach($studio as $st)
+                                            @if($st->order_id==$row->id)
+                                                @foreach($studiode as $dt)
+                                                    @if($dt->id==$st->studio_id)
+                                                        <td>{{\Illuminate\Support\Carbon::createFromFormat('Y-m-d H:i:s',$st->waktu_mulai)->format('D, j/M/y H:i')}}
+                                                            -<br>
+                                                            {{\Illuminate\Support\Carbon::createFromFormat('Y-m-d H:i:s',$st->waktu_habis)->format('H:i')}}
+                                                            WIB
+                                                        </td>
+                                                        <td>Practic <br>{{$dt->nama_studio}}</td>
+                                                    @endif
+                                                @endforeach
+                                            @endif
+                                        @endforeach
+                                        @foreach($recorder as $st)
+                                            @if($st->order_id==$row->id)
+                                                @foreach($recorderde as $dt)
+                                                    @if($dt->id==$st->jenis_recorder_id)
+                                                        <td>
+                                                            {{\Illuminate\Support\Carbon::createFromFormat('Y-m-d',$st->awal)->format('D, j/M/y')}}
+                                                            10:00-11:00 WIB
+                                                        </td>
+                                                        <td>Recording <br>{{$dt->nama_recorder}}</td>
                                                     @endif
                                                 @endforeach
                                             @endif
                                         @endforeach
                                         <td>{{$row->status_book}}</td>
-                                        <td>{{$row->updated_at->diffForHumans()}}</td>
+                                        <td>{{$row->created_at->diffForHumans()}}</td>
                                         @if($row->status_book=='Proses')
                                             <td>waiting</td>
-                                        @elseif($row->tgl_exp > $datadate && $row->status_book=='Pembayaran')
-                                            <td><a href="/konfirmasi/{{\Illuminate\Support\Facades\Crypt::encrypt($row->id)}}">konfirmasi</a></td>
+                                        @elseif($row->status_book=='DP' || $row->status_book=='Lunas')
+                                            <td>
+                                                <a target="_blank"
+                                                   href="{{url('/member/'.Auth::user()->id.'/'.$row->id.'/report')}}">Print</a>
+                                            </td>
+                                        @elseif($row->status_book=='Salah')
+                                            <td>
+                                                <a href="/konfirmasi/edit/{{\Illuminate\Support\Facades\Crypt::encrypt($row->id)}}">Edit</a>
+                                            </td>
+                                        @elseif($row->status_book=='Pembayaran')
+                                            <td>
+                                                <a href="/konfirmasi/{{\Illuminate\Support\Facades\Crypt::encrypt($row->id)}}">konfirmasi</a>
+                                            </td>
                                         @else
                                             <td>expired</td>
                                         @endif
@@ -94,12 +125,12 @@
                                 <tfoot>
                                 <tr class="bg-primary">
                                     <th>ID Order</th>
-                                    <th>Customer</th>
-                                    <th>Admin</th>
-                                    <th>Booking Date</th>
                                     <th>Expired Date</th>
+                                    <th>Time</th>
+                                    <th>Studio</th>
                                     <th>Status</th>
                                     <th>Due_at</th>
+                                    <th></th>
                                 </tr>
                                 </tfoot>
                             </table>

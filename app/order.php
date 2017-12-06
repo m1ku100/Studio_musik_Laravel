@@ -22,7 +22,9 @@ class order extends Model
     public function pengurus(){
         return $this->belongsTo(pengurus::class);
     }
-    public function users(){
+
+    public function user()
+    {
         return $this->belongsTo(User::class);
     }
 

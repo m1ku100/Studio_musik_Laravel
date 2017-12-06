@@ -23,6 +23,8 @@
     <link rel="stylesheet" href="{{asset('css/style.css')}}">
     <link rel="stylesheet" href="{{asset('css/responsive.css')}}">
     <script src="{{asset('js/vendor/modernizr-2.8.3.min.js')}}"></script>
+    <script src="{{ asset('sweetalert2/sweetalert2.min.js') }}"></script>
+    <link rel="stylesheet" href="{{ asset('/sweetalert2/sweetalert2.min.css') }}">
 </head>
 <body class="home-4">
 <!--[if lt IE 8]>
@@ -351,6 +353,6 @@
         } else return false;
     }
 </script>
-
+@yield('script')
 </body>
 </html>

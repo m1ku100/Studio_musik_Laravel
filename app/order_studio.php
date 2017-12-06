@@ -10,10 +10,13 @@ class order_studio extends Model
         'order_id', 'studio_id', 'waktu_mulai', 'waktu_habis', 'total_waktu' ,'deskripsi','harga',
     ];
 
-    public function studios(){
+    public function studio()
+    {
         return $this->belongsTo(studio::class);
     }
-    public function orders(){
+
+    public function order()
+    {
         return $this->belongsTo(order::class);
     }
 }
