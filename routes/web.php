@@ -23,7 +23,6 @@ Route::group(['middleware'=>'auth:admin'], function () {
         Route::get('jenis-recorder/{id}', 'JenisRecorderController@update');
     });
 
-
     Route::group(['prefix' => 'api'], function () {
         Route::get('jenis-recorder/data', 'JenisRecorderController@apiData')->name('api.jenis_recorder.data');
         Route::get('studio/data', 'StudioController@apiData')->name('api.studio.data');
