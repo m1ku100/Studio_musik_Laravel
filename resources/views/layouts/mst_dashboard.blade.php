@@ -10,7 +10,7 @@
     <link href='https://fonts.googleapis.com/css?family=Roboto+Slab:400,300,700' rel='stylesheet' type='text/css'>
     <link href="{{asset('css/bootstrap-social-gh-pages/bootstrap-social.css')}}" rel="stylesheet">
     <link href="{{asset('css/bootstrap-social-gh-pages/assets/css/font-awesome.css')}}" rel="stylesheet">
-    <link rel="shortcut icon" type="image/x-icon" href="{{asset('img/favicon.ico')}}">
+    <link rel="shortcut icon" type="image/x-icon" href="{{asset('favicon.ico')}}">
     <link rel="stylesheet" href="{{asset('css/bootstrap.min.css')}}">
     <link rel="stylesheet" type="text/css" href="{{asset('fonts/font-awesome.min.css')}}">
     <link rel="stylesheet" href="{{asset('css/owl.carousel.css')}}">
@@ -23,8 +23,8 @@
     <link rel="stylesheet" href="{{asset('css/style.css')}}">
     <link rel="stylesheet" href="{{asset('css/responsive.css')}}">
     <script src="{{asset('js/vendor/modernizr-2.8.3.min.js')}}"></script>
-    <script src="{{ asset('sweetalert2/sweetalert2.min.js') }}"></script>
-    <link rel="stylesheet" href="{{ asset('/sweetalert2/sweetalert2.min.css') }}">
+    <script src="{{ asset('sweetalert2/sweetalert2.js') }}"></script>
+    <link rel="stylesheet" href="{{ asset('/sweetalert2/sweetalert2.css') }}">
 </head>
 <body class="home-4">
 <!--[if lt IE 8]>
@@ -32,8 +32,14 @@
     your browser</a> to improve your experience.</p>
 <![endif]-->
 
-@if(session('contact'))
-    <script>alert('{{session('contact')}}')</script>
+@if(session('success'))
+    <script>
+        swal({
+            title: '{{ session('success') }}',
+            type: 'success',
+            timer: '3500'
+        })
+    </script>
 @endif
 
 <!-- header start -->
@@ -180,14 +186,15 @@
                             {{ csrf_field() }}
                             @if(Auth::user())
                                 <input name="email" value="{{Auth::user()->email}}" type="text"
-                                       placeholder="Email Address"/>
-                                <input name="name" value="{{Auth::user()->name}}" type="text" placeholder="Name"/>
+                                       placeholder="Email Address" required>
+                                <input name="name" value="{{Auth::user()->name}}" type="text" placeholder="Name"
+                                       required>
                             @else
-                                <input name="email" type="text" placeholder="Email Address"/>
-                                <input name="name" type="text" placeholder="Name"/>
+                                <input name="email" type="text" placeholder="Email Address" required>
+                                <input name="name" type="text" placeholder="Name" required>
                             @endif
                             <textarea name="message" placeholder="Message" class="form-control"
-                                      style="border:0;padding-left:20px;"></textarea>
+                                      style="border:0;padding-left:20px;" required></textarea>
                             <input type="submit" value="Submit" class="btn btn-primary">
                         </form>
                     </div>

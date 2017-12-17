@@ -1,15 +1,13 @@
 -- phpMyAdmin SQL Dump
--- version 4.7.0
--- https://www.phpmyadmin.net/
+-- version 4.5.1
+-- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: 06 Des 2017 pada 08.51
--- Versi Server: 10.1.26-MariaDB
--- PHP Version: 7.1.8
+-- Generation Time: Dec 17, 2017 at 07:42 AM
+-- Server version: 10.1.16-MariaDB
+-- PHP Version: 7.0.9
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET AUTOCOMMIT = 0;
-START TRANSACTION;
 SET time_zone = "+00:00";
 
 
@@ -25,7 +23,7 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `admins`
+-- Table structure for table `admins`
 --
 
 CREATE TABLE `admins` (
@@ -46,7 +44,7 @@ CREATE TABLE `admins` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Dumping data untuk tabel `admins`
+-- Dumping data for table `admins`
 --
 
 INSERT INTO `admins` (`id`, `url`, `name`, `lastname`, `address`, `education`, `skills`, `biography`, `email`, `password`, `remember_token`, `created_at`, `updated_at`, `deleted_at`) VALUES
@@ -63,7 +61,7 @@ INSERT INTO `admins` (`id`, `url`, `name`, `lastname`, `address`, `education`, `
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `contacts`
+-- Table structure for table `contacts`
 --
 
 CREATE TABLE `contacts` (
@@ -76,7 +74,7 @@ CREATE TABLE `contacts` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Dumping data untuk tabel `contacts`
+-- Dumping data for table `contacts`
 --
 
 INSERT INTO `contacts` (`id`, `email`, `name`, `message`, `created_at`, `updated_at`) VALUES
@@ -84,12 +82,14 @@ INSERT INTO `contacts` (`id`, `email`, `name`, `message`, `created_at`, `updated
 (2, 'fiqy_a@yahoo.com', 'Fiqy Ainuzzaqy', 'asdasdasd', '2017-11-25 11:05:41', '2017-11-23 11:05:41'),
 (3, 'fiqy_a@yahoo.com', 'Fiqy Ainuzzaqy', 'ghfhgfhgfhg', '2017-11-25 11:10:41', '2017-11-23 11:10:41'),
 (4, 'fahmi@fahmi.com', 'dalsjd', 'laskjdasd', '2017-12-03 03:04:13', '2017-12-03 03:04:13'),
-(5, 'fahmifreez@yahoo.com', 'Fahmi Rizky', 'akshdasd', '2017-12-04 18:47:10', '2017-12-04 18:47:10');
+(5, 'fahmifreez@yahoo.com', 'Fahmi Rizky', 'akshdasd', '2017-12-04 18:47:10', '2017-12-04 18:47:10'),
+(6, 'test@test.com', 'test', 'sadasdasda', '2017-12-17 03:09:06', '2017-12-17 03:09:06'),
+(7, 'test@yahoo.com', 'dasdasda', 'azczxczxczc', '2017-12-17 03:13:37', '2017-12-17 03:13:37');
 
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `history_order_recorders`
+-- Table structure for table `history_order_recorders`
 --
 
 CREATE TABLE `history_order_recorders` (
@@ -102,17 +102,18 @@ CREATE TABLE `history_order_recorders` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Dumping data untuk tabel `history_order_recorders`
+-- Dumping data for table `history_order_recorders`
 --
 
 INSERT INTO `history_order_recorders` (`id`, `waktu`, `status`, `order_id`, `created_at`, `updated_at`) VALUES
 (4, '2017-12-22', NULL, 95, '2017-12-05 10:10:50', '2017-12-05 10:10:50'),
-(5, '2017-12-07', NULL, 97, '2017-12-05 18:18:17', '2017-12-05 18:18:17');
+(5, '2017-12-07', NULL, 97, '2017-12-05 18:18:17', '2017-12-05 18:18:17'),
+(6, '2017-12-08', NULL, 99, '2017-12-06 08:57:42', '2017-12-06 08:57:42');
 
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `history_time_studios`
+-- Table structure for table `history_time_studios`
 --
 
 CREATE TABLE `history_time_studios` (
@@ -126,17 +127,30 @@ CREATE TABLE `history_time_studios` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Dumping data untuk tabel `history_time_studios`
+-- Dumping data for table `history_time_studios`
 --
 
 INSERT INTO `history_time_studios` (`id`, `waktu`, `status`, `studio_id`, `order_id`, `created_at`, `updated_at`) VALUES
 (202, '2017-12-05 12:00:00', 'start', 3, 94, '2017-12-05 09:55:31', NULL),
-(203, '2017-12-05 13:00:00', 'end', 3, 94, '2017-12-05 09:55:31', NULL);
+(203, '2017-12-05 13:00:00', 'end', 3, 94, '2017-12-05 09:55:31', NULL),
+(204, '2017-12-06 10:00:00', 'start', 2, 98, '2017-12-06 08:48:52', NULL),
+(205, '2017-12-06 12:00:00', 'end', 2, 98, '2017-12-06 08:48:52', NULL),
+(206, '2017-12-06 11:00:00', 'middle', 2, 98, '2017-12-06 08:48:52', NULL),
+(207, '2017-12-07 09:00:00', 'start', 2, 100, '2017-12-07 06:19:40', NULL),
+(208, '2017-12-07 11:00:00', 'end', 2, 100, '2017-12-07 06:19:40', NULL),
+(209, '2017-12-07 10:00:00', 'middle', 2, 100, '2017-12-07 06:19:41', NULL),
+(210, '2017-12-17 08:00:00', 'start', 2, 101, '2017-12-17 06:02:10', NULL),
+(211, '2017-12-17 09:00:00', 'end', 2, 101, '2017-12-17 06:02:10', NULL),
+(212, '2017-12-17 09:00:00', 'start', 2, 102, '2017-12-17 06:39:02', NULL),
+(213, '2017-12-17 13:00:00', 'end', 2, 102, '2017-12-17 06:39:02', NULL),
+(214, '2017-12-17 10:00:00', 'middle', 2, 102, '2017-12-17 06:39:02', NULL),
+(215, '2017-12-17 11:00:00', 'middle', 2, 102, '2017-12-17 06:39:02', NULL),
+(216, '2017-12-17 12:00:00', 'middle', 2, 102, '2017-12-17 06:39:02', NULL);
 
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `jenis_recorders`
+-- Table structure for table `jenis_recorders`
 --
 
 CREATE TABLE `jenis_recorders` (
@@ -150,18 +164,18 @@ CREATE TABLE `jenis_recorders` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Dumping data untuk tabel `jenis_recorders`
+-- Dumping data for table `jenis_recorders`
 --
 
 INSERT INTO `jenis_recorders` (`id`, `nama_recorder`, `deskripsi`, `harga_recorder`, `batas_hari`, `created_at`, `updated_at`) VALUES
-(34, 'Premium', '<li><span class=\"plan-border\"><strong>30GB</strong> Storage</span></li>                                        <li><span><strong>Recording</strong> Studio</span></li>                                        <li><span><strong>30</strong> Recordings</span></li>                                        <li><span><strong>90GB</strong> Internet Space</span></li>                                        <li><span><strong>HD</strong> Studio Sound</span></li>                                        <li><span class=\"plan-border\"><strong>16/7</strong> Support</span></li>', 380000, 1, '2017-12-02 09:20:39', '2017-12-04 22:16:57'),
-(35, 'Enterprise', '<li><span class=\"plan-border\"><strong>30GB</strong> Storage</span></li>                                        <li><span><strong>Recording</strong> Studio</span></li>                                        <li><span><strong>30</strong> Recordings</span></li>                                        <li><span><strong>Unlimited</strong> Internet Space</span></li>                                        <li><span><strong>HD</strong> Studio Sound</span></li>                                        <li><span class=\"plan-border\"><strong>16/7</strong> Support</span></li>', 480000, 1, '2017-12-02 09:20:40', '2017-12-04 21:37:00'),
-(36, 'Advanced', '<li><span class=\"plan-border\"><strong>50GB</strong> Storage</span></li>\r\n                                        <li><span><strong>Recording</strong> Studio</span></li>\r\n                                        <li><span><strong>50</strong> Recordings</span></li>\r\n                                        <li><span><strong>Unlimited</strong> Internet Space</span></li>\r\n                                        <li><span><strong>HD</strong> Studio Sound</span></li>\r\n                                        <li><span class=\"plan-border\"><strong>16/7</strong> Support</span></li>', 550000, 1, '2017-12-02 09:20:40', '2017-12-02 09:20:40');
+(34, 'Premium', '<li><span class="plan-border"><strong>30GB</strong> Storage</span></li>                                        <li><span><strong>Recording</strong> Studio</span></li>                                        <li><span><strong>30</strong> Recordings</span></li>                                        <li><span><strong>90GB</strong> Internet Space</span></li>                                        <li><span><strong>HD</strong> Studio Sound</span></li>                                        <li><span class="plan-border"><strong>16/7</strong> Support</span></li>', 380000, 1, '2017-12-02 09:20:39', '2017-12-04 22:16:57'),
+(35, 'Enterprise', '<li><span class="plan-border"><strong>30GB</strong> Storage</span></li>                                        <li><span><strong>Recording</strong> Studio</span></li>                                        <li><span><strong>30</strong> Recordings</span></li>                                        <li><span><strong>Unlimited</strong> Internet Space</span></li>                                        <li><span><strong>HD</strong> Studio Sound</span></li>                                        <li><span class="plan-border"><strong>16/7</strong> Support</span></li>', 480000, 1, '2017-12-02 09:20:40', '2017-12-04 21:37:00'),
+(36, 'Advanced', '<li><span class="plan-border"><strong>50GB</strong> Storage</span></li>\r\n                                        <li><span><strong>Recording</strong> Studio</span></li>\r\n                                        <li><span><strong>50</strong> Recordings</span></li>\r\n                                        <li><span><strong>Unlimited</strong> Internet Space</span></li>\r\n                                        <li><span><strong>HD</strong> Studio Sound</span></li>\r\n                                        <li><span class="plan-border"><strong>16/7</strong> Support</span></li>', 550000, 1, '2017-12-02 09:20:40', '2017-12-02 09:20:40');
 
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `jen_alats`
+-- Table structure for table `jen_alats`
 --
 
 CREATE TABLE `jen_alats` (
@@ -172,7 +186,7 @@ CREATE TABLE `jen_alats` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Dumping data untuk tabel `jen_alats`
+-- Dumping data for table `jen_alats`
 --
 
 INSERT INTO `jen_alats` (`id`, `name`, `created_at`, `updated_at`) VALUES
@@ -184,7 +198,7 @@ INSERT INTO `jen_alats` (`id`, `name`, `created_at`, `updated_at`) VALUES
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `kerusakan_studios`
+-- Table structure for table `kerusakan_studios`
 --
 
 CREATE TABLE `kerusakan_studios` (
@@ -196,7 +210,7 @@ CREATE TABLE `kerusakan_studios` (
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `konfirmasi_pembayarans`
+-- Table structure for table `konfirmasi_pembayarans`
 --
 
 CREATE TABLE `konfirmasi_pembayarans` (
@@ -207,25 +221,30 @@ CREATE TABLE `konfirmasi_pembayarans` (
   `metode` enum('Lunas','DP') COLLATE utf8mb4_unicode_ci NOT NULL,
   `tanggal_pembayaran` date NOT NULL,
   `deskripsi` text COLLATE utf8mb4_unicode_ci NOT NULL,
-  `jumlah` int(11) NOT NULL,
+  `jumlah` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
   `bukti_pembayaran` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Dumping data untuk tabel `konfirmasi_pembayarans`
+-- Dumping data for table `konfirmasi_pembayarans`
 --
 
 INSERT INTO `konfirmasi_pembayarans` (`id`, `order_id`, `member_id`, `atas_nama`, `metode`, `tanggal_pembayaran`, `deskripsi`, `jumlah`, `bukti_pembayaran`, `created_at`, `updated_at`) VALUES
-(5, 94, 13, 'sogol', 'Lunas', '2017-12-05', 'dlaksjdalksdj', 2, '/upload/pembayaran/a73d718708670216e16cf4143b1b7a30.png', '2017-12-05 09:55:58', '2017-12-05 09:55:58'),
-(6, 95, 13, 'alskdj', 'Lunas', '2017-12-05', 'laskdjasd', 3, '/upload/pembayaran/e575b8ee99d8b7fd0cd966fb5ec3ae42.png', '2017-12-05 10:11:08', '2017-12-05 10:11:08'),
-(7, 97, 13, 'Fahmi', 'Lunas', '2017-12-06', 'woy', 13123123, '/upload/pembayaran/839cc859284b9d65ad2c174ef908eee1.jpeg', '2017-12-05 18:25:04', '2017-12-05 18:25:04');
+(5, 94, 13, 'sogol', 'Lunas', '2017-12-05', 'dlaksjdalksdj', '2', '/upload/pembayaran/a73d718708670216e16cf4143b1b7a30.png', '2017-12-05 09:55:58', '2017-12-05 09:55:58'),
+(6, 95, 13, 'alskdj', 'Lunas', '2017-12-05', 'laskdjasd', '3', '/upload/pembayaran/e575b8ee99d8b7fd0cd966fb5ec3ae42.png', '2017-12-05 10:11:08', '2017-12-05 10:11:08'),
+(7, 97, 13, 'Fahmi', 'Lunas', '2017-12-06', 'woy', '13123123', '/upload/pembayaran/839cc859284b9d65ad2c174ef908eee1.jpeg', '2017-12-05 18:25:04', '2017-12-05 18:25:04'),
+(8, 98, 19, 'Fiqy Ainuzzaqy', 'Lunas', '2017-12-06', 'thx', '100', '/upload/pembayaran/da6ec64d8a2702bf4aa6239592c143da.jpg', '2017-12-06 08:51:00', '2017-12-06 08:51:00'),
+(9, 99, 19, 'Fiqy Ainuzzaqy', 'DP', '2017-12-06', 'dp dulu gan hehe', '200000', '/upload/pembayaran/d4bf357e17fd7b7858c35738c0f44c28.jpg', '2017-12-06 09:00:00', '2017-12-06 09:00:00'),
+(10, 100, 19, 'Fiqy Ainuzzaqy', 'DP', '2017-12-07', 'dp bro', '100000', '/upload/pembayaran/8baf590bd2903f2e9374741ed60885d2.jpg', '2017-12-07 06:21:01', '2017-12-07 06:21:01'),
+(11, 101, 26, 'Sosro', 'Lunas', '2017-12-17', 'sosor', '99999', '/upload/pembayaran/b7dbbcbd152aeab51fb97e3145930126.JPG', '2017-12-17 06:02:56', '2017-12-17 06:02:56'),
+(12, 102, 19, 'Sosro', 'Lunas', '2017-12-17', 'unas', '2983748374', '/upload/pembayaran/fa343e1a85cca94cc4596a19437384e6.jpg', '2017-12-17 06:41:55', '2017-12-17 06:41:55');
 
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `list_time2s`
+-- Table structure for table `list_time2s`
 --
 
 CREATE TABLE `list_time2s` (
@@ -237,7 +256,7 @@ CREATE TABLE `list_time2s` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Dumping data untuk tabel `list_time2s`
+-- Dumping data for table `list_time2s`
 --
 
 INSERT INTO `list_time2s` (`id`, `waktu`, `waktu_id`, `created_at`, `updated_at`) VALUES
@@ -323,7 +342,7 @@ INSERT INTO `list_time2s` (`id`, `waktu`, `waktu_id`, `created_at`, `updated_at`
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `list_times`
+-- Table structure for table `list_times`
 --
 
 CREATE TABLE `list_times` (
@@ -334,7 +353,7 @@ CREATE TABLE `list_times` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Dumping data untuk tabel `list_times`
+-- Dumping data for table `list_times`
 --
 
 INSERT INTO `list_times` (`id`, `waktu`, `created_at`, `updated_at`) VALUES
@@ -355,7 +374,7 @@ INSERT INTO `list_times` (`id`, `waktu`, `created_at`, `updated_at`) VALUES
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `members`
+-- Table structure for table `members`
 --
 
 CREATE TABLE `members` (
@@ -367,7 +386,7 @@ CREATE TABLE `members` (
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `migrations`
+-- Table structure for table `migrations`
 --
 
 CREATE TABLE `migrations` (
@@ -377,7 +396,7 @@ CREATE TABLE `migrations` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Dumping data untuk tabel `migrations`
+-- Dumping data for table `migrations`
 --
 
 INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
@@ -404,7 +423,7 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `new_ins`
+-- Table structure for table `new_ins`
 --
 
 CREATE TABLE `new_ins` (
@@ -418,7 +437,7 @@ CREATE TABLE `new_ins` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Dumping data untuk tabel `new_ins`
+-- Dumping data for table `new_ins`
 --
 
 INSERT INTO `new_ins` (`id`, `studio_id`, `jenis_alat_id`, `nama_inst`, `gambar`, `created_at`, `updated_at`) VALUES
@@ -428,7 +447,7 @@ INSERT INTO `new_ins` (`id`, `studio_id`, `jenis_alat_id`, `nama_inst`, `gambar`
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `orders`
+-- Table structure for table `orders`
 --
 
 CREATE TABLE `orders` (
@@ -443,19 +462,24 @@ CREATE TABLE `orders` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Dumping data untuk tabel `orders`
+-- Dumping data for table `orders`
 --
 
 INSERT INTO `orders` (`id`, `user_id`, `pengurus_id`, `tgl_booking`, `tgl_exp`, `status_book`, `created_at`, `updated_at`) VALUES
 (94, 13, NULL, '2017-12-05 09:55:31', '2017-12-05 10:25:31', 'DP', '2017-12-05 09:55:31', '2017-12-05 12:45:56'),
 (95, 13, NULL, '2017-12-05 10:10:50', '2017-12-05 10:40:50', 'Lunas', '2017-12-05 10:10:50', '2017-12-05 12:45:04'),
-(96, 13, NULL, '2017-12-05 12:13:57', '2017-12-05 12:43:57', 'Gagal', '2017-12-05 12:13:57', '2017-12-05 12:45:00'),
-(97, 13, NULL, '2017-12-05 18:18:17', '2017-12-05 18:48:17', 'Lunas', '2017-12-05 18:18:17', '2017-12-05 18:25:50');
+(96, 19, NULL, '2017-12-05 12:13:57', '2017-12-05 12:43:57', 'Gagal', '2017-12-05 12:13:57', '2017-12-05 12:45:00'),
+(97, 13, NULL, '2017-12-05 18:18:17', '2017-12-05 18:48:17', 'Lunas', '2017-12-05 18:18:17', '2017-12-05 18:25:50'),
+(98, 19, NULL, '2017-12-06 08:48:52', '2017-12-06 09:18:52', 'Lunas', '2017-12-06 08:48:52', '2017-12-06 08:52:54'),
+(99, 19, NULL, '2017-12-06 08:57:42', '2017-12-06 09:27:42', 'DP', '2017-12-06 08:57:42', '2017-12-06 09:00:59'),
+(100, 19, NULL, '2017-12-07 06:19:40', '2017-12-07 06:49:40', 'DP', '2017-12-07 06:19:40', '2017-12-07 06:21:43'),
+(101, 26, NULL, '2017-12-17 06:02:10', '2017-12-17 06:32:10', 'Proses', '2017-12-17 06:02:10', '2017-12-17 06:02:56'),
+(102, 19, NULL, '2017-12-17 06:39:02', '2017-12-17 07:09:02', 'Proses', '2017-12-17 06:39:02', '2017-12-17 06:41:55');
 
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `order_recorders`
+-- Table structure for table `order_recorders`
 --
 
 CREATE TABLE `order_recorders` (
@@ -469,17 +493,18 @@ CREATE TABLE `order_recorders` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Dumping data untuk tabel `order_recorders`
+-- Dumping data for table `order_recorders`
 --
 
 INSERT INTO `order_recorders` (`id`, `order_id`, `jenis_recorder_id`, `awal`, `batas`, `created_at`, `updated_at`) VALUES
 (4, 95, 34, '2017-12-22', NULL, '2017-12-05 10:10:50', '2017-12-05 10:10:50'),
-(5, 97, 35, '2017-12-07', NULL, '2017-12-05 18:18:17', '2017-12-05 18:18:17');
+(5, 97, 35, '2017-12-07', NULL, '2017-12-05 18:18:17', '2017-12-05 18:18:17'),
+(6, 99, 35, '2017-12-08', NULL, '2017-12-06 08:57:42', '2017-12-06 08:57:42');
 
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `order_studios`
+-- Table structure for table `order_studios`
 --
 
 CREATE TABLE `order_studios` (
@@ -496,17 +521,22 @@ CREATE TABLE `order_studios` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Dumping data untuk tabel `order_studios`
+-- Dumping data for table `order_studios`
 --
 
 INSERT INTO `order_studios` (`id`, `order_id`, `studio_id`, `waktu_mulai`, `waktu_habis`, `total_waktu`, `deskripsi`, `harga`, `created_at`, `updated_at`) VALUES
-(80, 94, 3, '2017-12-05 12:00:00', '2017-12-05 13:00:00', 1, 'sads', 90000, '2017-12-05 09:55:31', '2017-12-05 09:55:31'),
-(81, 96, 3, '2017-12-05 14:00:00', '2017-12-05 15:00:00', 1, 'Kosong', 90000, '2017-12-05 12:13:57', '2017-12-05 12:13:57');
+(80, 94, 3, '2017-12-06 08:41:31', '2017-12-06 10:20:00', 1, 'sads', 90000, '2017-12-05 09:55:31', '2017-12-05 09:55:31'),
+(81, 96, 3, '2017-12-07 08:42:27', '2017-12-07 13:00:00', 1, 'Kosong', 90000, '2017-12-05 12:13:57', '2017-12-05 12:13:57'),
+(82, 94, 3, '2017-12-06 08:46:02', '2017-12-08 12:00:00', 1, 'sads', 90000, '2017-12-05 09:55:31', '2017-12-05 09:55:31'),
+(84, 98, 2, '2017-12-06 10:00:00', '2017-12-06 12:00:00', 2, 'Kosong', 140000, '2017-12-06 08:48:52', '2017-12-06 08:48:52'),
+(85, 100, 2, '2017-12-07 09:00:00', '2017-12-07 11:00:00', 2, 'Kosong', 140000, '2017-12-07 06:19:40', '2017-12-07 06:19:40'),
+(86, 101, 2, '2017-12-17 08:00:00', '2017-12-17 09:00:00', 1, 'Kosong', 70000, '2017-12-17 06:02:10', '2017-12-17 06:02:10'),
+(87, 102, 2, '2017-12-17 09:00:00', '2017-12-17 13:00:00', 4, 'Kosong', 280000, '2017-12-17 06:39:02', '2017-12-17 06:39:02');
 
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `password_resets`
+-- Table structure for table `password_resets`
 --
 
 CREATE TABLE `password_resets` (
@@ -516,7 +546,7 @@ CREATE TABLE `password_resets` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Dumping data untuk tabel `password_resets`
+-- Dumping data for table `password_resets`
 --
 
 INSERT INTO `password_resets` (`email`, `token`, `created_at`) VALUES
@@ -525,7 +555,7 @@ INSERT INTO `password_resets` (`email`, `token`, `created_at`) VALUES
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `penguruses`
+-- Table structure for table `penguruses`
 --
 
 CREATE TABLE `penguruses` (
@@ -542,7 +572,7 @@ CREATE TABLE `penguruses` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Dumping data untuk tabel `penguruses`
+-- Dumping data for table `penguruses`
 --
 
 INSERT INTO `penguruses` (`id_pengurus`, `nama_pengurus`, `email`, `password`, `no_telp`, `gambar_pengurus`, `status_pengurus`, `remember_token`, `created_at`, `updated_at`) VALUES
@@ -551,7 +581,7 @@ INSERT INTO `penguruses` (`id_pengurus`, `nama_pengurus`, `email`, `password`, `
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `sliders`
+-- Table structure for table `sliders`
 --
 
 CREATE TABLE `sliders` (
@@ -564,7 +594,7 @@ CREATE TABLE `sliders` (
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `social_providers`
+-- Table structure for table `social_providers`
 --
 
 CREATE TABLE `social_providers` (
@@ -577,18 +607,19 @@ CREATE TABLE `social_providers` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Dumping data untuk tabel `social_providers`
+-- Dumping data for table `social_providers`
 --
 
 INSERT INTO `social_providers` (`id`, `user_id`, `provider_id`, `provider`, `created_at`, `updated_at`) VALUES
 (1, 7, '1739671939376625', 'facebook', '2017-11-25 03:29:53', '2017-11-25 03:29:53'),
 (2, 13, '1869304259777332', 'facebook', '2017-11-29 11:48:00', '2017-11-29 11:48:00'),
-(3, 12, '114319997385023942061', 'google', '2017-12-04 22:38:55', '2017-12-04 22:38:55');
+(3, 12, '114319997385023942061', 'google', '2017-12-04 22:38:55', '2017-12-04 22:38:55'),
+(4, 19, '19623652', 'github', '2017-12-06 08:39:59', '2017-12-06 08:39:59');
 
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `studios`
+-- Table structure for table `studios`
 --
 
 CREATE TABLE `studios` (
@@ -601,7 +632,7 @@ CREATE TABLE `studios` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Dumping data untuk tabel `studios`
+-- Dumping data for table `studios`
 --
 
 INSERT INTO `studios` (`id`, `nama_studio`, `harga_studio`, `gambar_studio`, `created_at`, `updated_at`) VALUES
@@ -611,7 +642,7 @@ INSERT INTO `studios` (`id`, `nama_studio`, `harga_studio`, `gambar_studio`, `cr
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `users`
+-- Table structure for table `users`
 --
 
 CREATE TABLE `users` (
@@ -624,7 +655,7 @@ CREATE TABLE `users` (
   `password` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `gambar_user` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT 'avatar.png',
   `remember_token` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `verifyToken` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `verifyToken` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `status` tinyint(1) DEFAULT '0',
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
@@ -632,7 +663,7 @@ CREATE TABLE `users` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Dumping data untuk tabel `users`
+-- Dumping data for table `users`
 --
 
 INSERT INTO `users` (`id`, `name`, `nama_band`, `alamat`, `no_telp`, `email`, `password`, `gambar_user`, `remember_token`, `verifyToken`, `status`, `created_at`, `updated_at`, `deleted_at`) VALUES
@@ -651,7 +682,10 @@ INSERT INTO `users` (`id`, `name`, `nama_band`, `alamat`, `no_telp`, `email`, `p
 (14, 'fahmi', 'aklsjd', 'alkjsdlakj', '02934', 'lakjdladkj@ladj.com', '$2y$10$oya7U4D0pcZhEAf2U2c9du5bKONzsGwcL/0qnxRde4/FFJH3idYwm', 'avatar.png', NULL, 'CvHj9ccBmrU5uxAcCTs9dBxtYfvO0EDN6B5tHHwn', 0, '2017-12-04 22:45:38', '2017-12-04 22:45:38', NULL),
 (15, 'sogol', 'alskdjasklj', 'dlakjsdlakj', '230498203948', 'sogol@subroto.com', '$2y$10$oya7U4D0pcZhEAf2U2c9du5bKONzsGwcL/0qnxRde4/FFJH3idYwm', 'avatar.png', NULL, 'Zb9QD4jkn3nbaSeaXFa9QRtKm97NB7QMONWCoY4S', 0, '2017-12-05 05:56:29', '2017-12-05 05:56:29', NULL),
 (16, 'ilham', 'ilham', 'sadas', '2131231', 'ilham@yahoo.com', '$2y$10$VOMrPsO7PZ.76b.WguG7ZeLfolgmWdFN8Uh2R2XJFZep4YprFiJN.', 'avatar.png', NULL, 'SiXmgR5HFdV9p3aVPW0yGLQUqci7KWwtXCx8ONfV', 0, '2017-12-05 17:07:16', '2017-12-05 17:07:16', NULL),
-(17, 'asdasd', 'zxcxzc', 'sadasd', '123123', 'aaa@aaa.com', '$2y$10$TeoPWuyygijkFf2Ah6Ae0.X9/9YTdvpK5Jx8UmFuBz9mhqV2n6Z.O', 'avatar.png', NULL, '4aKDCdCCyvVmpSvqZMYf3JfKJPhNqMiTk9UbBTEP', 0, '2017-12-05 17:22:26', '2017-12-05 17:22:26', NULL);
+(17, 'asdasd', 'zxcxzc', 'sadasd', '123123', 'aaa@aaa.com', '$2y$10$TeoPWuyygijkFf2Ah6Ae0.X9/9YTdvpK5Jx8UmFuBz9mhqV2n6Z.O', 'avatar.png', NULL, '4aKDCdCCyvVmpSvqZMYf3JfKJPhNqMiTk9UbBTEP', 0, '2017-12-05 17:22:26', '2017-12-05 17:22:26', NULL),
+(18, 'Rabbit Media', 'Rabbits', 'Jl. Hikmat 50A Betro\r\nSedati', '08563094333', 'rabbit@rabbit.com', '$2y$10$AWbwgt2iUZgAac8RmW4TZe2v7auiYG/CIjN17QhjEcsmfvFwssw0u', 'avatar.png', NULL, 'UIbPzM1fxtXoS5yoXxhpcq9DRS5CA7Ea91YuutQX', 0, '2017-12-06 08:30:38', '2017-12-06 08:30:38', NULL),
+(19, 'Fiqy Ainuzzaqy', NULL, NULL, NULL, 'fiqy_a@icloud.com', NULL, 'avatar.png', NULL, NULL, 0, '2017-12-06 08:39:59', '2017-12-06 08:39:59', NULL),
+(26, 'Dwi Sosro', 'Sosro Band', 'Pabean', '08563094333', 'sosro@sosro.com', '$2y$10$lZwwpTtRN7Kd/fG16MTF4.j4nat9LcyYg5uZD6xngNq0rZBuwUiGi', 'avatar.png', '0jaJOzYTbuoBWZREdFkYkXSn70yuI37ciQumwLWIawBK3yscTsWJhBt7UaO9', NULL, 1, '2017-12-17 05:22:00', '2017-12-17 05:22:08', NULL);
 
 --
 -- Indexes for dumped tables
@@ -818,17 +852,17 @@ ALTER TABLE `admins`
 -- AUTO_INCREMENT for table `contacts`
 --
 ALTER TABLE `contacts`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 --
 -- AUTO_INCREMENT for table `history_order_recorders`
 --
 ALTER TABLE `history_order_recorders`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 --
 -- AUTO_INCREMENT for table `history_time_studios`
 --
 ALTER TABLE `history_time_studios`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=204;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=217;
 --
 -- AUTO_INCREMENT for table `jenis_recorders`
 --
@@ -848,7 +882,7 @@ ALTER TABLE `kerusakan_studios`
 -- AUTO_INCREMENT for table `konfirmasi_pembayarans`
 --
 ALTER TABLE `konfirmasi_pembayarans`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 --
 -- AUTO_INCREMENT for table `list_time2s`
 --
@@ -878,17 +912,17 @@ ALTER TABLE `new_ins`
 -- AUTO_INCREMENT for table `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=98;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=103;
 --
 -- AUTO_INCREMENT for table `order_recorders`
 --
 ALTER TABLE `order_recorders`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 --
 -- AUTO_INCREMENT for table `order_studios`
 --
 ALTER TABLE `order_studios`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=82;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=88;
 --
 -- AUTO_INCREMENT for table `penguruses`
 --
@@ -903,7 +937,7 @@ ALTER TABLE `sliders`
 -- AUTO_INCREMENT for table `social_providers`
 --
 ALTER TABLE `social_providers`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 --
 -- AUTO_INCREMENT for table `studios`
 --
@@ -913,59 +947,58 @@ ALTER TABLE `studios`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
 --
--- Ketidakleluasaan untuk tabel pelimpahan (Dumped Tables)
+-- Constraints for dumped tables
 --
 
 --
--- Ketidakleluasaan untuk tabel `history_order_recorders`
+-- Constraints for table `history_order_recorders`
 --
 ALTER TABLE `history_order_recorders`
   ADD CONSTRAINT `history_order_recorders_ibfk_1` FOREIGN KEY (`order_id`) REFERENCES `orders` (`id`) ON UPDATE CASCADE;
 
 --
--- Ketidakleluasaan untuk tabel `history_time_studios`
+-- Constraints for table `history_time_studios`
 --
 ALTER TABLE `history_time_studios`
   ADD CONSTRAINT `history_time_studios_ibfk_1` FOREIGN KEY (`studio_id`) REFERENCES `studios` (`id`) ON UPDATE CASCADE,
   ADD CONSTRAINT `history_time_studios_ibfk_2` FOREIGN KEY (`order_id`) REFERENCES `orders` (`id`) ON UPDATE CASCADE;
 
 --
--- Ketidakleluasaan untuk tabel `konfirmasi_pembayarans`
+-- Constraints for table `konfirmasi_pembayarans`
 --
 ALTER TABLE `konfirmasi_pembayarans`
   ADD CONSTRAINT `konfirmasi_pembayarans_member_id_foreign` FOREIGN KEY (`member_id`) REFERENCES `users` (`id`),
   ADD CONSTRAINT `konfirmasi_pembayarans_order_id_foreign` FOREIGN KEY (`order_id`) REFERENCES `orders` (`id`);
 
 --
--- Ketidakleluasaan untuk tabel `new_ins`
+-- Constraints for table `new_ins`
 --
 ALTER TABLE `new_ins`
   ADD CONSTRAINT `new_ins_jenis_alat_id_foreign` FOREIGN KEY (`jenis_alat_id`) REFERENCES `jen_alats` (`id`),
   ADD CONSTRAINT `new_ins_studio_id_foreign` FOREIGN KEY (`studio_id`) REFERENCES `studios` (`id`);
 
 --
--- Ketidakleluasaan untuk tabel `orders`
+-- Constraints for table `orders`
 --
 ALTER TABLE `orders`
   ADD CONSTRAINT `orders_pengurus_id_foreign` FOREIGN KEY (`pengurus_id`) REFERENCES `penguruses` (`id_pengurus`),
   ADD CONSTRAINT `orders_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`);
 
 --
--- Ketidakleluasaan untuk tabel `order_recorders`
+-- Constraints for table `order_recorders`
 --
 ALTER TABLE `order_recorders`
   ADD CONSTRAINT `order_recorders_jenis_recorder_id_foreign` FOREIGN KEY (`jenis_recorder_id`) REFERENCES `jenis_recorders` (`id`),
   ADD CONSTRAINT `order_recorders_order_id_foreign` FOREIGN KEY (`order_id`) REFERENCES `orders` (`id`);
 
 --
--- Ketidakleluasaan untuk tabel `order_studios`
+-- Constraints for table `order_studios`
 --
 ALTER TABLE `order_studios`
   ADD CONSTRAINT `order_studios_order_id_foreign` FOREIGN KEY (`order_id`) REFERENCES `orders` (`id`),
   ADD CONSTRAINT `order_studios_studio_id_foreign` FOREIGN KEY (`studio_id`) REFERENCES `studios` (`id`);
-COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

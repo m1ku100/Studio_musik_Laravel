@@ -17,9 +17,23 @@
                     <div class="w3-panel w3-card">
                         <div class="panel-body wow fadeInUp" data-wow-duration="1s" data-wow-delay=".3s">
                             @if($token && $recaptcha)
-                                <div class="alert alert-success">
-                                    <strong>Confirmed!</strong> Anda 100% manusia yang hidup dan bukanlah sebuah robot.
-                                    Silahkan login dengan akun anda.
+                                <div class="alert alert-success alert-dismissible">
+                                    <button type="button" class="close" data-dismiss="alert"
+                                            aria-hidden="true">
+                                        &times;
+                                    </button>
+                                    <strong>Confirmed!</strong> Anda 100% manusia yang hidup dan bukanlah sebuah
+                                    robot. Silahkan login dengan akun anda.
+                                </div>
+                            @endif
+                            @if(session('success'))
+                                <div class="alert alert-success alert-dismissible">
+                                    <button type="button" class="close" data-dismiss="alert"
+                                            aria-hidden="true">
+                                        &times;
+                                    </button>
+                                    <h4><i class="icon fa fa-check"></i> Alert!</h4>
+                                    {{session('success')}}
                                 </div>
                             @endif
                             <form class="form-horizontal" role="form" method="POST" action="{{ route('login') }}">

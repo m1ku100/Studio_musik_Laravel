@@ -34,9 +34,11 @@ Route::get('/', 'SistumController@index')->name('dashboard');
 Route::post('/contact', 'SistumController@postContact')->name('submit_contact');
 
 // Verify email + reCaptcha
-Route::get('register/success', 'Auth\RegisterController@verifyEmailFirst')->name('register.success');
-Route::get('verify/{email}/{verifyToken}', 'Auth\RegisterController@sendEmailDone')->name('sendEmailDone');
-Route::post('login/notrobot', 'Auth\RegisterController@notrobot')->name('login/notrobot');
+Route::prefix('account')->group(function () {
+    Route::get('activate', 'Auth\ActivationController@activate')->name('auth.activate');
+    Route::get('captcha', 'Auth\ActivationController@showCaptcha')->name('captcha');
+    Route::post('captcha', 'Auth\ActivationController@postCaptcha')->name('submit_captcha');
+});
 
 // Socialite login
 Route::get('auth/{provider}', 'Auth\RegisterController@redirectToProvider');

@@ -39,7 +39,6 @@ class SistumController extends Controller
             $message->to('rm.rabbitmedia@gmail.com');
             $message->subject($data['subject']);
         });
-        Session::flash('contact', 'Thank you so much, your feedback make us growth to be a better company :)');
-        return redirect('/');
+        return redirect('/')->withSuccess('Thank you so much, your feedback make us growth to be a better company :)');
     }
 }

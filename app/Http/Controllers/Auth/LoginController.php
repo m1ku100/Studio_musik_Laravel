@@ -8,6 +8,7 @@ use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Input;
+use Illuminate\Validation\Rule;
 use Laravel\Socialite\Facades\Socialite;
 
 class LoginController extends Controller
@@ -42,90 +43,139 @@ class LoginController extends Controller
         $this->middleware('guest')->except('logout');
     }
 
+    /**
+     * Validate the user login request.
+     *
+     * @param  \Illuminate\Http\Request $request
+     * @return void
+     */
+    protected function validateLogin(Request $request)
+    {
+        $this->validate($request, [
+            $this->username() => [
+                'required', 'string',
+                Rule::exists('users')->where(function ($query) {
+                    $query->where('status', true);
+                })
+            ],
+            'password' => 'required|string',
+        ], $this->validationError());
+    }
+
+    /**
+     * Get the validation error for login
+     *
+     * @return array
+     */
+    public function validationError()
+    {
+        return [
+            $this->username() . '.exists' => 'Akun anda belum aktif! Mohon melakukan aktivasi terlebih dahulu.'
+        ];
+    }
+
     public function showLoginForm()
     {
         $token = Input::get('_token');
         $recaptcha = Input::get('g-recaptcha-response');
+        if (!session()->has('url.intended')) {
+            session(['url.intended' => url()->previous()]);
+        }
         return view('auth.login', compact('token', 'recaptcha'));
     }
 
     /**
-     * Redirect the user to the GitHub authentication page.
-     *
-     * @return Response
-     */
-    public function redirectToProvider()
-    {
-        return Socialite::driver('facebook')->redirect();
-    }
-
-    /**
-     * Obtain the user information from GitHub.
-     *
-     * @return Response
-     */
-    public function handleProviderCallback()
-    {
-        $userSocial = Socialite::driver('facebook')->user();
-        //  $userSocial = Socialite::driver('facebook')->user();
-        $findUser = User::where('email', $userSocial->email)->first();
-        if ($findUser) {
-            Auth::login($findUser);
-            return 'done with old';
-        } else {
-            $user = new User;
-            $user->name = $userSocial->name;
-            $user->lastname = 'facebook';
-            $user->email = $userSocial->email;
-            $user->password = bcrypt(123456);
-            $user->save();
-            Auth::login($user);
-            return 'done with new';
-        }
-
-    }
-
-    public function googleHedirectToProvider()
-    {
-        return Socialite::driver('google')->redirect();
-    }
-
-    /**
-     * Obtain the user information from GitHub.
-     *
-     * @return Response
-     */
-    public function googleHandleProviderCallback()
-    {
-        $user = Socialite::driver('google')->user();
-        return $user->name;
-    }
-
-    public function twitterHedirectToProvider()
-    {
-        return Socialite::driver('twitter')->redirect();
-    }
-
-    /**
-     * Obtain the user information from GitHub.
-     *
-     * @return Response
-     */
-    public function twitterHandleProviderCallback()
-    {
-        $user = Socialite::driver('twitter')->user();
-        return $user->name;
-    }
-
-    /**
-     * Get the needed authorization credentials from the request.
+     * Log the user out of the application.
      *
      * @param  \Illuminate\Http\Request $request
-     * @return array
+     * @return \Illuminate\Http\Response
      */
-    protected function credentials(Request $request)
+    public function logout(Request $request)
     {
-//        return $request->only($this->username(), 'password');
-        return ['email' => $request{$this->username()}, 'password' => $request->password, 'status' => '1'];
+        $this->guard()->logout();
+
+        $request->session()->invalidate();
+
+        return back();
     }
+
+//    /**
+//     * Redirect the user to the GitHub authentication page.
+//     *
+//     * @return Response
+//     */
+//    public function redirectToProvider()
+//    {
+//        return Socialite::driver('facebook')->redirect();
+//    }
+//
+//    /**
+//     * Obtain the user information from GitHub.
+//     *
+//     * @return Response
+//     */
+//    public function handleProviderCallback()
+//    {
+//        $userSocial = Socialite::driver('facebook')->user();
+//        //  $userSocial = Socialite::driver('facebook')->user();
+//        $findUser = User::where('email', $userSocial->email)->first();
+//        if ($findUser) {
+//            Auth::login($findUser);
+//            return 'done with old';
+//        } else {
+//            $user = new User;
+//            $user->name = $userSocial->name;
+//            $user->lastname = 'facebook';
+//            $user->email = $userSocial->email;
+//            $user->password = bcrypt(123456);
+//            $user->save();
+//            Auth::login($user);
+//            return 'done with new';
+//        }
+//
+//    }
+//
+//    public function googleHedirectToProvider()
+//    {
+//        return Socialite::driver('google')->redirect();
+//    }
+//
+//    /**
+//     * Obtain the user information from GitHub.
+//     *
+//     * @return Response
+//     */
+//    public function googleHandleProviderCallback()
+//    {
+//        $user = Socialite::driver('google')->user();
+//        return $user->name;
+//    }
+//
+//    public function twitterHedirectToProvider()
+//    {
+//        return Socialite::driver('twitter')->redirect();
+//    }
+//
+//    /**
+//     * Obtain the user information from GitHub.
+//     *
+//     * @return Response
+//     */
+//    public function twitterHandleProviderCallback()
+//    {
+//        $user = Socialite::driver('twitter')->user();
+//        return $user->name;
+//    }
+//
+//    /**
+//     * Get the needed authorization credentials from the request.
+//     *
+//     * @param  \Illuminate\Http\Request $request
+//     * @return array
+//     */
+//    protected function credentials(Request $request)
+//    {
+////        return $request->only($this->username(), 'password');
+//        return ['email' => $request{$this->username()}, 'password' => $request->password, 'status' => '1'];
+//    }
 }

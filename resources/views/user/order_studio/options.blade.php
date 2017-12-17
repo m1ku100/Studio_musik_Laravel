@@ -83,30 +83,39 @@
                                                     <form method="post" class="form-horizontal"
                                                           action="{{route('user.order-studio')}}">
                                                         {{ csrf_field() }}
-                                                        <label class="col-md-4 control-label">Studio</label>
-                                                        @foreach($studio as $st)
-                                                            <input type="radio" value="{{$st->id}}"
-                                                                   class="studiosel"
-                                                                   name="studio_id">&nbsp;{{$st->nama_studio}}
-                                                            <a title="See {{$st->nama_studio}}" data-toggle="modal"
-                                                               data-target="#myCarousel{{$st->id}}">
-                                                                (<i class="fa fa-picture-o"></i>)
-                                                            </a>
-                                                            <br>
-                                                        @endforeach
+
+                                                        <div class="form-group">
+                                                            <label class="col-md-4 control-label">Studio</label>
+                                                            <div class="col-lg-6">
+                                                                @foreach($studio as $st)
+                                                                    <input type="radio" value="{{$st->id}}"
+                                                                           class="studiosel" name="studio_id">&nbsp;
+                                                                    {{$st->nama_studio}}
+                                                                    <a title="See {{$st->nama_studio}}"
+                                                                       data-toggle="modal"
+                                                                       data-target="#myCarousel{{$st->id}}">
+                                                                        (<i class="fa fa-picture-o"></i>)
+                                                                    </a>
+
+                                                                @endforeach
+                                                            </div>
+                                                        </div>
 
                                                         <input type="hidden" name="date" value="{{$date}}">
-                                                        <br>
-                                                        <label class="col-md-4 control-label">Start</label>
 
-                                                        <select style="width: 50%" name="waktu_mulai"
-                                                                class="form-control productcategory"
-                                                                id="prod_cat_id">
-                                                            <option value="0" disabled="true" selected="true">
-                                                                -- Choose --
-                                                            </option>
-                                                        </select>
-                                                        <br>
+                                                        <div class="form-group">
+                                                            <label class="col-md-4 control-label">Start</label>
+                                                            <div class="col-lg-6">
+                                                                <select name="waktu_mulai"
+                                                                        class="form-control productcategory"
+                                                                        id="prod_cat_id">
+                                                                    <option value="0" disabled="true" selected="true">
+                                                                        -- Choose --
+                                                                    </option>
+                                                                </select>
+                                                            </div>
+                                                        </div>
+
                                                         <div class="form-group">
                                                             <label class="col-md-4 control-label">End</label>
                                                             <div class="col-md-6">
@@ -169,29 +178,34 @@
                                                     <form method="post" class="form-horizontal"
                                                           action="{{route('user.order-studio')}}">
                                                         {{ csrf_field() }}
-                                                        <label class="col-md-4 control-label">Studio</label>
-                                                        @foreach($studio as $st)
-                                                            <input type="radio" value="{{$st->id}}"
-                                                                   class="studiosel2"
-                                                                   name="studio_id">&nbsp;{{$st->nama_studio}}
-                                                            <a title="See {{$st->nama_studio}}" data-toggle="modal"
-                                                               data-target="#myCarousel{{$st->id}}">
-                                                                (<i class="fa fa-picture-o"></i>)
-                                                            </a>
-                                                            <br>
-                                                        @endforeach
-
+                                                        <div class="form-group">
+                                                            <label class="col-md-4 control-label">Studio</label>
+                                                            <div class="col-lg-6">
+                                                                @foreach($studio as $st)
+                                                                    <input type="radio" value="{{$st->id}}"
+                                                                           class="studiosel2"
+                                                                           name="studio_id">&nbsp;{{$st->nama_studio}}
+                                                                    <a title="See {{$st->nama_studio}}"
+                                                                       data-toggle="modal"
+                                                                       data-target="#myCarousel{{$st->id}}">
+                                                                        (<i class="fa fa-picture-o"></i>)
+                                                                    </a>
+                                                                @endforeach
+                                                            </div>
+                                                        </div>
                                                         <input type="hidden" name="date2" value="{{$date2}}">
-                                                        <br>
-                                                        <label class="col-md-4 control-label">Start</label>
-                                                        <select style="width: 50%;" name="waktu_mulai"
-                                                                class="form-control productcategory2"
-                                                                id="prod_cat_id">
-                                                            <option value="0" disabled="true" selected="true">
-                                                                -- Choose --
-                                                            </option>
-                                                        </select>
-                                                        <br>
+                                                        <div class="form-group">
+                                                            <label class="col-md-4 control-label">Start</label>
+                                                            <div class="col-lg-6">
+                                                                <select name="waktu_mulai"
+                                                                        class="form-control productcategory2"
+                                                                        id="prod_cat_id">
+                                                                    <option value="0" disabled="true" selected="true">
+                                                                        -- Choose --
+                                                                    </option>
+                                                                </select>
+                                                            </div>
+                                                        </div>
 
                                                         <div class="form-group">
                                                             <label class="col-md-4 control-label">End</label>
@@ -344,9 +358,9 @@
                         }
                         op2 += '<option value="0" disabled="true" selected="true">Then Select Start</option>';
 
-                        div.find('.productcategory').html(" ");
-                        div.find('.productcategory').append(op);
-                        div.find('.productname').append(op2);
+                        $('.productcategory').html(" ");
+                        $('.productcategory').append(op);
+                        $('.productname').append(op2);
                     },
                     error: function () {
                         console.log('gagal');
@@ -385,10 +399,10 @@
                         }
                         op2 += '<option value="0" disabled="true" selected="true">Then Select Start</option>';
 
-                        div.find('.productcategory2').html(" ");
-                        div.find('.productname2').html(" ");
-                        div.find('.productcategory2').append(op);
-                        div.find('.productname2').append(op2);
+                        $('.productcategory2').html(" ");
+                        $('.productname2').html(" ");
+                        $('.productcategory2').append(op);
+                        $('.productname2').append(op2);
                     },
                     error: function () {
                         console.log('gagal');
@@ -421,8 +435,8 @@
                             op += '<option value="' + data[i].waktu + '">' + data[i].waktu + ' WIB</option>';
                         }
 
-                        div.find('.productname').html(" ");
-                        div.find('.productname').append(op);
+                        $('.productname').html(" ");
+                        $('.productname').append(op);
                     },
                     error: function () {
                         console.log('gagal');
@@ -454,8 +468,8 @@
                             op += '<option value="' + data[i].waktu + '">' + data[i].waktu + ' WIB</option>';
                         }
 
-                        div.find('.productname2').html(" ");
-                        div.find('.productname2').append(op);
+                        $('.productname2').html(" ");
+                        $('.productname2').append(op);
                     },
                     error: function () {
                         console.log('gagal');

@@ -13,7 +13,7 @@
 
     <link href="{{asset('plugins/datatables/dataTables.bootstrap.css')}}" rel="stylesheet">
 
-    <link rel="shortcut icon" type="image/x-icon" href="{{asset('img/favicon.ico')}}">
+    <link rel="shortcut icon" type="image/x-icon" href="{{asset('favicon.ico')}}">
     <link rel="stylesheet" href="{{asset('css/bootstrap.min.css')}}">
     <link rel="stylesheet" type="text/css" href="{{asset('fonts/font-awesome.min.css')}}">
     <link rel="stylesheet" href="{{asset('css/owl.carousel.css')}}">
@@ -297,6 +297,8 @@
             opacity: 0.7;
         }
     </style>
+    <script src='https://www.google.com/recaptcha/api.js'></script>
+
 </head>
 <body class="home-4">
 <!--[if lt IE 8]>

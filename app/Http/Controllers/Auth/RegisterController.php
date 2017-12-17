@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Events\Auth\UserActivationEmail;
 use App\Mail\verifyEmail;
 use App\SocialProvider;
 use App\User;
@@ -10,10 +11,9 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Mail;
-use Illuminate\Support\Facades\Session;
-use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
+use Illuminate\Support\Str;
 use Laravel\Socialite\Facades\Socialite;
 
 class RegisterController extends Controller
@@ -58,9 +58,6 @@ class RegisterController extends Controller
     {
         return Validator::make($data, [
             'name' => 'required|string|max:255',
-            'nama_band' => 'required|string|max:255',
-            'alamat' => 'required|string|max:255',
-            'no_telp' => 'required|string|max:13',
             'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|min:6|confirmed',
         ]);
@@ -81,40 +78,26 @@ class RegisterController extends Controller
             'no_telp' => $data['no_telp'],
             'email' => $data['email'],
             'password' => bcrypt($data['password']),
-            'verifyToken' => Str::random(40),
+            'status' => false,
+            'verifyToken' => Str::random(255),
         ]);
-        $thisUser = User::findOrFail($user->id);
-        $this->sendEmail($thisUser);
-        return $user;
     }
 
-    public function verifyEmailFirst()
+    /**
+     * The user has been registered.
+     *
+     * @param  \Illuminate\Http\Request $request
+     * @param  mixed $user
+     * @return mixed
+     */
+    protected function registered(Request $request, $user)
     {
-        $sql = DB::table('users')->ORDERBY('id', 'desc')->LIMIT(1)->get();
-        return view('auth.email.sendVerify', compact('sql'));
-    }
+        //sending mail
+        event(new UserActivationEmail($user));
 
-    public function sendEmail($thisUser)
-    {
-        Mail::to($thisUser['email'])->send(new verifyEmail($thisUser));
-    }
+        $this->guard()->logout();
 
-    public function sendEmailDone($email, $verifyToken)
-    {
-        $user = User::where(['email' => $email, 'verifyToken' => $verifyToken])->first();
-        if ($user) {
-            User::where(['email' => $email, 'verifyToken' => $verifyToken])->update(['status' => '1', 'verifyToken' => null]);
-            return view('auth.email.verified');
-        } else {
-            return view('auth.email.error');
-        }
-    }
-
-    public function notrobot()
-    {
-        $token = Input::get('_token');
-        $recaptcha = Input::get('g-recaptcha-response');
-        return view('auth.login', compact('token', 'recaptcha'));
+        return redirect()->route('login')->withSuccess('Register berhasil. Mohon cek email anda untuk melakukan proses aktivasi.');
     }
 
     /**
@@ -146,8 +129,7 @@ class RegisterController extends Controller
             $user = User::firstOrCreate(
                 ['email' => $socialUser->getEmail()],
                 ['name' => $socialUser->getName()],
-                ['lastname' => $socialUser->getNickname()],
-                ['gambar_user' => $socialUser->getAvatar()]
+                ['lastname' => $socialUser->getNickname()]
             );
 
             $user->socialProviders()->create(

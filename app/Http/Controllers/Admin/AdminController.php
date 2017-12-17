@@ -30,8 +30,6 @@ class AdminController extends Controller
 
     public function index()
     {
-
-
         //tambah fahmi
         $lt_studio = order_studio::orderBy('id', 'desc')->limit(3)->get();
         $lt_recorder = order_recorder::orderBy('id', 'desc')->limit(3)->get();

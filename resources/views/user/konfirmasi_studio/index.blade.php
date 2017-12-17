@@ -99,7 +99,7 @@
 
                                 <div class="col-md-6">
                                     <input placeholder="Transfer nominal" id="jumlah" type="number" min="0"
-                                           class="form-control"
+                                           class="form-control" onkeypress="return hanyaAngka(event, false)"
                                            name="jumlah" required>
                                     <span class="glyphicon glyphicon-usd form-control-feedback"></span>
                                 </div>
